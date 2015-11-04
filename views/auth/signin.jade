@@ -1,5 +1,12 @@
 extends ../base_layout
 
+block extra_css
+  link(rel='stylesheet', href='/fonts/fontello/css/login-icons.css')
+
 block content
-  h1 Sign in
-  p Sign in
+  button.btn
+    span.icon.icon-github-squared &#59393;
+    | Sign In With Github
+  button.btn
+    span.icon.icon-twitter-squared &#59392;
+    | Sign In With Twitter
