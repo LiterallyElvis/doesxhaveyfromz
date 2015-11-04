@@ -9,3 +9,15 @@
 .z{
 	color: Steelblue;
 }
+
+.centered-text{ 
+	text-align: center;
+}
+
+.quarter-width{
+	width: 25%;
+}
+
+.centered-margin{
+	margin: 0 auto;
+}

@@ -1,10 +1,11 @@
 extends base_layout
 
 block extra_js
-  script(src="/javascripts/homePlaceholderDemo.js")
+    script(src="/javascript/homePlaceholderDemo.js")
+    script(src="/javascript/controllers/indexController.js")
 
 block content
-  .query-container
+  .centered-text
     form.form-inline
       .form-group
         span(style="margin: 1rem;") Does
