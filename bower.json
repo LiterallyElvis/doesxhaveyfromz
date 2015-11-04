@@ -1,0 +1,29 @@
+{
+  "name": "doesxhaveyfromz",
+  "description": "a web site",
+  "main": "",
+  "authors": [
+    "Jeffrey D. <literallyelvis@gmail.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "web",
+    "site"
+  ],
+  "moduleType": [
+    "es6",
+    "node"
+  ],
+  "homepage": "http://doesxhaveyfromz.com",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "public/components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.5"
+  }
+}

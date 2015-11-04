@@ -1,0 +1,21 @@
+extends base_layout
+
+block extra_js
+  script(src="/javascripts/homePlaceholderDemo.js")
+
+block content
+  .query-container
+    form.form-inline
+      .form-group
+        span(style="margin: 1rem;") Does
+        input#x.form-control(type="email", placeholder="Ruby")
+      .form-group
+        span(style="margin: 1rem;") Have
+        input#y.form-control(type="password", placeholder=".get()")
+      .form-group
+        span(style="margin: 1rem;") From
+        input#z.form-control(type="password", placeholder="Python")
+      span(style="margin: 1rem;") ?
+      button.btn.btn-default(type="submit")
+        span.glyphicon.glyphicon-search
+
