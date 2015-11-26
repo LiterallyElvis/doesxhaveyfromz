@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/stylesheets/style.css">
     {% block extra_css %}{% endblock %}
   </head>
-  <body>
+  <body ng-app="doesxhaveyfromz">
     <nav class="navbar navbar-inverse navbar-static-top">
       <div class="container-fluid">
         <div class="navbar-header"><a href="/" class="navbar-brand">does<span class="x">x</span>have<span class="y">y</span>from<span class="z">z</span>?</a></div>
@@ -18,7 +18,7 @@
 
     {% block content %}{% endblock %}
 
-    {% block extra_js %}{% endblock %}
     <script src="/bower/angular/angular.min.js"></script>
+    {% block extra_js %}{% endblock %}
   </body>
 </html>

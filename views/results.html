@@ -1,0 +1,23 @@
+{% extends "base_layout.html" %}
+
+{% block extra_js %}
+<script src="/javascript/controllers/exampleSearchController.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class="half-width centered-margin" ng-controller="searchExample">
+  <div ng-repeat="answer in answers" class="media">
+    <div class="btn-group-vertical pull-right">
+      <button type="button" class="btn btn-default"><span class="y glyphicon glyphicon-arrow-up"></span><br>{{ answer.upvotes }}</button>
+      <button type="button" class="btn btn-default">{{ answer.downvotes }}<br><span class="x glyphicon glyphicon-arrow-down"></span></button>
+    </div>
+  <div class="pull-left">
+    <img class="media-object img-rounded comment-user-photo" src="{{ answer.user.photo }}">
+    <p><a href=""><small>{{ answer.user.name }}</small></a></p>
+  </div>
+    <div class="media-body media-middle">
+        {{ answer.content }}
+    </div>
+  </div>
+</div>
+{% endblock %}
