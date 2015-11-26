@@ -1,0 +1,23 @@
+{% extends "base_layout.html" %}
+
+{% block extra_js %}
+<script src="/javascript/homePlaceholderDemo.js"></script>
+<script src="/javascript/controllers/indexController.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class="centered-text">
+  <form class="form-inline">
+    <div class="form-group"><span style="margin: 1rem;">Does</span>
+      <input id="x" type="email" placeholder="Ruby" class="form-control"/>
+    </div>
+    <div class="form-group"><span style="margin: 1rem;">Have</span>
+      <input id="y" type="password" placeholder=".get()" class="form-control"/>
+    </div>
+    <div class="form-group"><span style="margin: 1rem;">From</span>
+      <input id="z" type="password" placeholder="Python" class="form-control"/>
+    </div><span style="margin: 1rem;">?</span>
+    <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+  </form>
+</div>
+{% endblock %}
