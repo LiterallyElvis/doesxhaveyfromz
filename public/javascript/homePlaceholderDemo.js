@@ -21,12 +21,12 @@ var tools = [
   'Django',
   'Flask',
 
-  // Databases
+  // databases
   'Postgres',
   'Redis',
   'Mongo',
 
-  // Markup/CSS preprocessors
+  // markup/CSS preprocessors
   'Sass',
   'Jade', 
   'Less',
@@ -39,6 +39,8 @@ var features = [
   'static typing',
   'structs',
   'constants',
+  'decorators',
+  'template strings',  
 
   // generic functions found in many languages
   '.split()',
@@ -60,7 +62,7 @@ var features = [
   // common string operations
   '.strip()',
   '.trim()',
-  'template strings',
+  '.split()',
 
   // JS stuff
   'two-way data binding',
