@@ -7,17 +7,21 @@
 }
 
 .z{
-	color: Steelblue;
+	color: RoyalBlue;
+}
+
+.half-width{
+    width: 50%;
 }
 
 .centered-text{ 
 	text-align: center;
 }
 
-.quarter-width{
-	width: 25%;
-}
-
 .centered-margin{
 	margin: 0 auto;
+}
+
+.comment-user-photo{
+    max-width: 6rem; 
 }

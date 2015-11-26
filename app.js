@@ -1,4 +1,5 @@
 var express = require('express');
+var exphbs  = require('express-handlebars');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -10,11 +11,9 @@ var app = express();
 // Routes
 var routes = require('./routes/index');
 var users = require('./routes/users');
-var auth = require('./routes/auth');
 
 app.use('/', routes);
 app.use('/users', users);
-app.use('/auth', auth);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

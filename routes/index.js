@@ -7,7 +7,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/signin', function(req, res, next) {
-  res.render('auth/signin');
+  res.render('signin', { title: 'doesxhaveyfromz' });
 });
 
 module.exports = router;
