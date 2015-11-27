@@ -1,7 +1,5 @@
 var express = require('express');
-
 var nunjucks = require('nunjucks');
-
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -24,8 +22,10 @@ nunjucks.configure('views', {
 // Routes
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var inquiries = require('./routes/inquiries');
 
 app.use('/', routes);
+app.use('/api', inquiries);
 app.use('/users', users);
 
 // // view engine setup
