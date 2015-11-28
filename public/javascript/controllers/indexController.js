@@ -79,15 +79,9 @@ app.controller('indexController', [
             'reusable components'
         ];
 
-        $scope.autocompletes = {
-            x: [],
-            y: [],
-            z: []
-        };
+        $scope.autocompletes = [];
         $http.get("/api/autocompletes").then(function(data){
-            data.data.forEach(function(group){ 
-                for(var thing in group){ $scope.autocompletes[thing].push(group[thing]);}
-            });
+            $scope.autocompletes = data.data;
         }, function(error){
             console.log("Error retrieveing autocompletes:");
             console.log(error);
