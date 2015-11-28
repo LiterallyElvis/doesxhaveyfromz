@@ -79,10 +79,15 @@ app.controller('indexController', [
             'reusable components'
         ];
 
-        $scope.autocompletes = {};
+        $scope.autocompletes = {
+            x: [],
+            y: [],
+            z: []
+        };
         $http.get("/api/autocompletes").then(function(data){
-            $scope.autocompletes = data;
-            console.log($scope.autocompletes);
+            data.data.forEach(function(group){ 
+                for(var thing in group){ $scope.autocompletes[thing].push(group[thing]);}
+            });
         }, function(error){
             console.log("Error retrieveing autocompletes:");
             console.log(error);
@@ -92,7 +97,6 @@ app.controller('indexController', [
             if (!min) { min = 0; }
             return Math.floor(Math.random() * (max - min) + min);
         };
-        
         
         $interval( function(){         
             var xValue = generateRandomNumberWithinRange($scope.tools.length);
