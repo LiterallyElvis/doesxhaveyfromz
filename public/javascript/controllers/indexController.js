@@ -6,7 +6,7 @@ app.controller('indexController', [
         $scope.x = "Ruby";
         $scope.y = ".get()";
         $scope.z = "Python";
-        
+
         $scope.tools = [
             // languages
             'Javascript',
@@ -91,8 +91,8 @@ app.controller('indexController', [
             if (!min) { min = 0; }
             return Math.floor(Math.random() * (max - min) + min);
         };
-        
-        $interval( function(){         
+
+        $interval( function(){
             var xValue = generateRandomNumberWithinRange($scope.tools.length);
             var zValue = generateRandomNumberWithinRange($scope.tools.length);
 

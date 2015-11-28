@@ -3,7 +3,7 @@ var pg = require('pg');
 var connUrl = process.env.POSTGRES_CONNECTION_URL
 
 module.exports = function(app){
-  app.get('/autocompletes', function(req, res, next) {
+  app.get('/api/autocompletes', function(req, res, next) {
   	pg.connect(connUrl, function(err, client, done) {
   		if(err){
   			console.log("DB Connection Error: couldn't connect to " + connUrl);
