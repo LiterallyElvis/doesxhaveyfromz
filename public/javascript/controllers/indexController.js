@@ -1,4 +1,4 @@
-var app = angular.module('doesxhaveyfromz', []);
+var app = angular.module('doesxhaveyfromz');
 
 app.controller('indexController', [
     '$scope', '$http', '$interval',

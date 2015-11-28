@@ -5,8 +5,9 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+var passport = require('passport');
 var routes = require('./routes');
+var session = require('express-session');
 var app = express();
 
 // view engine setup
@@ -20,25 +21,41 @@ nunjucks.configure('views', {
     }
 });
 
-// Routes
-routes(app);
-
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+// app.use(favicon(path.join(__dirname, 'public', 'favicon.ico'))); // uncomment after placing your favicon in /public
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use(session({ secret: process.env.APP_SECRET }));
+app.use(passport.initialize());
+app.use(passport.session());
+
+// database client
+var db = require('./db');
+db(app);
+
+// Routes
+routes(app);
+
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// more passport stuff
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(obj, done) {
+  done(null, obj);
+});
+
+// --- ERROR HANDLERS ---
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
-
-// error handlers
 
 // development error handler
 // will print stacktrace

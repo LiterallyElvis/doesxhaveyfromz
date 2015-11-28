@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <link rel="stylesheet" href="/public/bower/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/public/stylesheets/style.css">
+    
+  </head>
+  <body ng-app="doesxhaveyfromz">
+    <nav class="navbar navbar-inverse navbar-static-top" ng-controller="testHeaderController">
+      <div class="container-fluid">
+        <div class="navbar-header"><a href="/" class="navbar-brand">does<span class="x">x</span>have<span class="y">y</span>from<span class="z">z</span>?</a></div>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="/auth/signin" ng-if="!loggedIn">Sign In</a></li>
+          <li><a href="/auth/signin" ng-if="loggedIn">
+              <img style="max-width: 2rem;" src="{{ user._json.avatar_url }}" class="img-rounded"> {{ user.username }}
+          </a></li>
+        </ul>
+      </div>
+    </nav>
+
+    
+<div class="centered-text" ng-controller="indexController">
+  <form class="form-inline">
+    Does <input id="x" placeholder="{{ x }}" class="form-control"/>
+    have <input id="y" placeholder="{{ y }}" class="form-control"/>
+    from <input id="z" placeholder="{{ z }}" class="form-control"/>
+    <span style="margin: .5rem;">?</span>
+  </form>
+</div>
+
+
+    <script src="/public/bower/angular/angular.min.js"></script>
+    <script src="/public/javascript/controllers/testHeaderController.js"></script>
+    
+<script src="/public/javascript/controllers/indexController.js"></script>
+
+  </body>
+</html>

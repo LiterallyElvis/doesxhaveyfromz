@@ -7,11 +7,18 @@
     {% block extra_css %}{% endblock %}
   </head>
   <body ng-app="doesxhaveyfromz">
-    <nav class="navbar navbar-inverse navbar-static-top">
+    <nav class="navbar navbar-inverse navbar-static-top" ng-controller="headerController">
       <div class="container-fluid">
         <div class="navbar-header"><a href="/" class="navbar-brand">does<span class="x">x</span>have<span class="y">y</span>from<span class="z">z</span>?</a></div>
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="/signin">Sign In</a></li>
+          <li ng-show="!loggedIn">
+            <a href="/auth/signin">Sign In</a>
+          </li>
+          <li ng-show="loggedIn">
+            <a href="/auth/signin">
+              <img style="max-width: 2rem;" src="{{ user._json.avatar_url }}" class="img-rounded"> {{ user.username }}
+            </a>
+          </li>
         </ul>
       </div>
     </nav>
@@ -19,6 +26,7 @@
     {% block content %}{% endblock %}
 
     <script src="/bower/angular/angular.min.js"></script>
+    <script src="/javascript/controllers/headerController.js"></script>
     {% block extra_js %}{% endblock %}
   </body>
 </html>
