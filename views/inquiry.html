@@ -2,7 +2,12 @@
 
 {% block extra_js %}
 <script src="/javascript/controllers/inquiryController.js"></script>
-<script src="/bower/prism/prism.js"></script>
+<!-- One day, a smarter person than me will figure out how to get Prism to load
+performantly on a site like this.
+
+Today is not that day.
+<script src="/javascript/third-party/prism.js"></script> -->
+<script src="/javascript/directives/prismDirective.js"></script>
 {% endblock %}
 
 {% block extra_css %}
@@ -24,14 +29,10 @@
         <p>{{ answer.summary }}</p>
         <small ng-click="toggleExamples()">{{ toggleText }}</small><br>
         <div ng-if="showExamples">
-          <pre style="width: 49%; float: left;">{{ answer.x }}:<p>--------</p>{{answer.x_example}}</pre>
-          <pre style="width: 49%; float: right;">{{ answer.z }}:<p>--------</p>{{answer.z_example}}</pre>
+          <pre style="width: 49%; float: left;" prism source="{{answer.x_example}}" class="language-ruby"></pre>
+          <pre style="width: 49%; float: left;" prism source="{{answer.z_example}}" class="language-python"></pre>
         </div>
     </div>
   </div>
 </div>
 {% endblock %}
-
-
-
-
