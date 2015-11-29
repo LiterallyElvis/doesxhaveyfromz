@@ -20,12 +20,11 @@ module.exports = function(app){
 
     for( var query in req.query ){
       if( req.query[query].toLowerCase != 'any' && req.query[query].trim() != '' ){
-        queryString += query + '=$' + index + ' and ' ;
+        queryString += 'LOWER(' + query + ')=LOWER($' + index + ') and ' ;
         index += 1;
         paramsToAdd.push(req.query[query]);
       }
     }
-
     queryString = queryString.substr(0, queryString.lastIndexOf(' and '));
 
     // I feel super clever and also super bad?????
