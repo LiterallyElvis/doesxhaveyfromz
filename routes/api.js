@@ -35,6 +35,13 @@ module.exports = function(app){
     });
   });
 
+  app.get('/api/inquiry/:inquiry_id/answers', function(req, res){
+    app.db.query('select * from answers join users on answers.user = users.id where inquiry_id=$1', [req.params.inquiry_id], function(err, result){
+      if( err ){ return res.status(500).json({ error: err }); }
+      return res.status(200).json(result.rows)
+    })
+  });
+
   app.post('/api/create_inquiry', function(req, res){
     app.db.query('insert into inquiries () values ()', [], function(err, result){
       if( err ){ return res.status(500).json({ error: err }); }

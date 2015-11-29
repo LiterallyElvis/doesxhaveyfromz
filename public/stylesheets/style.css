@@ -10,8 +10,8 @@
 	color: RoyalBlue;
 }
 
-.half-width{
-    width: 50%;
+.centerable-width{
+    width: 65%;
 }
 
 .centered-text{
@@ -24,4 +24,13 @@
 
 .comment-user-photo{
     max-width: 10rem;
+}
+
+.code-example{
+    width: 49%;
+    background-color: black;
+    color: white;
+    font-family: monospace;
+    resize:vertical;
+    height: 5rem;
 }

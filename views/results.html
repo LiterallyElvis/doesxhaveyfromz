@@ -5,22 +5,8 @@
 {% endblock %}
 
 {% block content %}
-<div class="half-width centered-margin" ng-controller="searchController">
-    <h2 class="centered-text">Does {{ x }} have {{ y }} from {{ z }}?</h2>
-    <!--
-    Example inquiries:
-    [
-        {
-            "id": 1,
-            "x": "Ruby",
-            "y": ".get()",
-            "z": "Python",
-            "user": 1,
-            "answer": "yes",
-            "answer_user": null
-        }
-    ]
-   -->
+<div class="centerable-width centered-margin" ng-controller="searchController">
+  <h2 class="centered-text">Does {{ x }} have {{ y }} from {{ z }}?</h2>
   <a ng-repeat="inquiry in inquiries" href="/inquiry/{{ inquiry.id }}">
   <div class="panel panel-default">
     <div class="panel-heading">
