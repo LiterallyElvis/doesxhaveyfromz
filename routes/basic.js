@@ -3,6 +3,10 @@ module.exports = function(app){
     res.render('index', { user: req.user });
   });
 
+  app.get('/search', function(req, res, next) {
+    res.render('results');
+  });
+
   app.get('/results', function(req, res, next) {
     res.render('results');
   });

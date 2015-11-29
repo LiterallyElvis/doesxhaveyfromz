@@ -1,11 +1,18 @@
 var app = angular.module('doesxhaveyfromz');
 
 app.controller('indexController', [
-    '$scope', '$http', '$interval',
-    function($scope, $http, $interval) {
-        $scope.x = "Ruby";
-        $scope.y = ".get()";
-        $scope.z = "Python";
+    '$scope', '$http', '$interval', '$window',
+    function($scope, $http, $interval, $window) {
+        $scope.exampleX = 'Ruby';
+        $scope.exampleY = '.get()';
+        $scope.exampleZ = 'Python';
+
+        $scope.x = null;
+        $scope.y = null;
+        $scope.z = null;
+
+        $scope.varsMarkedAny = [];
+        $scope.warnAboutAny = false;
 
         $scope.tools = [
             // languages
@@ -72,6 +79,8 @@ app.controller('indexController', [
             '.strip()',
             '.trim()',
             '.split()',
+            '.lower()',
+            '.join()',
 
             // JS stuff
             'two-way data binding',
@@ -83,7 +92,7 @@ app.controller('indexController', [
         $http.get("/api/autocompletes").then(function(data){
             $scope.autocompletes = data.data;
         }, function(error){
-            console.log("Error retrieveing autocompletes:");
+            console.log('Error retrieving autocompletes:');
             console.log(error);
         });
 
@@ -92,17 +101,43 @@ app.controller('indexController', [
             return Math.floor(Math.random() * (max - min) + min);
         };
 
+        $scope.validateInput = function(varName, xyz){
+            if( xyz.toLowerCase() === 'any' ){
+                $scope.varsMarkedAny.push(varName);
+                $scope.warnAboutAny = true;
+                $scope.warningAboutAny = 'Be advised! The following variables are marked any: ' + $scope.varsMarkedAny + '\nThis will result in all values being returned for the other variables.';
+            } else {
+                if( $scope.varsMarkedAny.indexOf(varName) != -1 ){ $scope.varsMarkedAny.splice($scope.varsMarkedAny.indexOf(varName), 1); };
+                if( $scope.varsMarkedAny.length === 0){ $scope.warnAboutAny = false; };
+                $scope.warningAboutAny = '';
+            }
+        }
+
+        $scope.submitInquiry = function(){
+            if( $scope.x.toLowerCase() === 'any' && $scope.y.toLowerCase() === 'any' && $scope.z.toLowerCase() === 'any' ){
+                console.log('invalid query parameters');
+                $scope.invalidQueryError = true;
+                $scope.invalidQueryNotice = 'At least one value must be filled out and not \'any\'.';
+            } else {
+                if( $scope.x === null ){ $scope.x = 'any' };
+                if( $scope.y === null ){ $scope.y = 'any' };
+                if( $scope.z === null ){ $scope.z = 'any' };
+
+                $window.location.href = 'search?x=' + $scope.x + '&y=' + $scope.y + '&z=' + $scope.z
+            }
+        }
+
         $interval( function(){
             var xValue = generateRandomNumberWithinRange($scope.tools.length);
             var zValue = generateRandomNumberWithinRange($scope.tools.length);
 
             if (zValue === xValue) {
-                zValue = zValue == $scope.tools.length ? zValue - 1 : zValue + 1
+                zValue = zValue == $scope.tools.length ? zValue - 1 : zValue + 1;
             }
 
-            $scope.x = $scope.tools[xValue];
-            $scope.y = $scope.features[generateRandomNumberWithinRange($scope.features.length)];
-            $scope.z = $scope.tools[zValue];
+            $scope.exampleX = $scope.tools[xValue];
+            $scope.exampleY = $scope.features[generateRandomNumberWithinRange($scope.features.length)];
+            $scope.exampleZ = $scope.tools[zValue];
 
         }, 3000);
     }
