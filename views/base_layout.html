@@ -3,7 +3,10 @@
   <head>
     <title></title>
     <link rel="stylesheet" href="/bower/bootstrap/dist/css/bootstrap.min.css">
+    <link href="/fonts/fontello/css/login-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="/stylesheets/style.css">
+
+    {% block extra_head %}{% endblock %}
     {% block extra_css %}{% endblock %}
   </head>
   <body ng-app="doesxhaveyfromz">
@@ -16,7 +19,7 @@
         </div>
         <ul class="nav navbar-nav navbar-right">
           <li ng-if="!loggedIn">
-            <a href="/auth/signin">Sign In</a>
+            <a href="/auth/signin"><span class="icon icon-github-squared">&#59393;</span>Sign In With Github</a>
           </li>
           <li ng-if="loggedIn">
             <a href="#">
