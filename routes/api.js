@@ -9,7 +9,8 @@ module.exports = function(app){
   // inquiries
   app.get('/api/search', function(req, res){
     // this whole route is clevergirl.gif
-
+    var catchAll = 'anything';
+    console.log('\n\n')
     if( Object.keys(req.query).length < 1 ){
       return res.status(500).json({error: 'no search parameters set!'});
     }
@@ -19,7 +20,7 @@ module.exports = function(app){
     var index = 1;
 
     for( var query in req.query ){
-      if( req.query[query].toLowerCase != 'any' && req.query[query].trim() != '' ){
+      if( req.query[query].toLowerCase() != catchAll && req.query[query].trim() != '' ){
         queryString += 'LOWER(' + query + ')=LOWER($' + index + ') and ' ;
         index += 1;
         paramsToAdd.push(req.query[query]);

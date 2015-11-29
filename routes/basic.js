@@ -10,4 +10,8 @@ module.exports = function(app){
   app.get('/results', function(req, res, next) {
     res.render('results');
   });
+
+  app.get('/inquiry/:id', function(req, res){
+    res.render('inquiry');
+  })
 }

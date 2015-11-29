@@ -1,6 +1,6 @@
 var app = angular.module('doesxhaveyfromz');
 
-app.controller('searchExample', [
+app.controller('inquiryController', [
     '$scope', '$http',
     function($scope, $http) {
       $scope.x = "Ruby"

@@ -7,6 +7,8 @@ app.controller('indexController', [
         $scope.exampleY = '.get()';
         $scope.exampleZ = 'Python';
 
+        var catchAll = 'anything';
+
         $scope.x = null;
         $scope.y = null;
         $scope.z = null;
@@ -102,10 +104,10 @@ app.controller('indexController', [
         };
 
         $scope.validateInput = function(varName, xyz){
-            if( xyz.toLowerCase() === 'any' ){
+            if( xyz.toLowerCase() === catchAll ){
                 $scope.varsMarkedAny.push(varName);
                 $scope.warnAboutAny = true;
-                $scope.warningAboutAny = 'Be advised! The following variables are marked any: ' + $scope.varsMarkedAny + '\nThis will result in all values being returned for the other variables.';
+                $scope.warningAboutAny = 'Be advised! The following variables are marked anything: ' + $scope.varsMarkedAny + '\nThis will result in all values being returned for the other variables.';
             } else {
                 if( $scope.varsMarkedAny.indexOf(varName) != -1 ){ $scope.varsMarkedAny.splice($scope.varsMarkedAny.indexOf(varName), 1); };
                 if( $scope.varsMarkedAny.length === 0){ $scope.warnAboutAny = false; };
@@ -114,14 +116,14 @@ app.controller('indexController', [
         }
 
         $scope.submitInquiry = function(){
-            if( $scope.x.toLowerCase() === 'any' && $scope.y.toLowerCase() === 'any' && $scope.z.toLowerCase() === 'any' ){
+            if( $scope.x.toLowerCase() === catchAll && $scope.y.toLowerCase() === catchAll && $scope.z.toLowerCase() === catchAll ){
                 console.log('invalid query parameters');
                 $scope.invalidQueryError = true;
-                $scope.invalidQueryNotice = 'At least one value must be filled out and not \'any\'.';
+                $scope.invalidQueryNotice = 'At least one value must be filled out and not \'anything\'.';
             } else {
-                if( $scope.x === null ){ $scope.x = 'any' };
-                if( $scope.y === null ){ $scope.y = 'any' };
-                if( $scope.z === null ){ $scope.z = 'any' };
+                if( $scope.x === null ){ $scope.x = catchAll };
+                if( $scope.y === null ){ $scope.y = catchAll };
+                if( $scope.z === null ){ $scope.z = catchAll };
 
                 $window.location.href = 'search?x=' + $scope.x + '&y=' + $scope.y + '&z=' + $scope.z
             }

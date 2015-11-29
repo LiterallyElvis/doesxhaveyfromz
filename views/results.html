@@ -6,18 +6,30 @@
 
 {% block content %}
 <div class="half-width centered-margin" ng-controller="searchController">
-  <div ng-repeat="answer in answers" class="media">
-    <div class="btn-group-vertical pull-right">
-      <button type="button" class="btn btn-default"><span class="y glyphicon glyphicon-arrow-up"></span><br>{{ answer.upvotes }}</button>
-      <button type="button" class="btn btn-default">{{ answer.downvotes }}<br><span class="x glyphicon glyphicon-arrow-down"></span></button>
+    <h2 class="centered-text">Does {{ x }} have {{ y }} from {{ z }}?</h2>
+    <!--
+    Example inquiries:
+    [
+        {
+            "id": 1,
+            "x": "Ruby",
+            "y": ".get()",
+            "z": "Python",
+            "user": 1,
+            "answer": "yes",
+            "answer_user": null
+        }
+    ]
+   -->
+  <a ng-repeat="inquiry in inquiries" href="#">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">{{ inquiry.answer }}</h3>
     </div>
-  <div class="pull-left">
-    <img class="media-object img-rounded comment-user-photo" src="{{ answer.user.photo }}">
-    <p><a href=""><small>{{ answer.user.name }}</small></a></p>
-  </div>
-    <div class="media-body media-middle">
-        {{ answer.content }}
+    <div class="panel-body">
+      Bacon ipsum dolor amet pastrami andouille bresaola meatball beef ribs short ribs shank venison boudin cow pancetta. Chuck capicola bacon filet mignon, pork chop strip steak shoulder sausage.
     </div>
   </div>
+  </a>
 </div>
 {% endblock %}
