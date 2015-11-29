@@ -8,8 +8,8 @@
 <div class="centerable-width centered-margin" ng-controller="inquiryController">
   <div ng-repeat="answer in answers" class="media">
     <div class="btn-group-vertical pull-right">
-      <button type="button" class="btn btn-default" ng-click="upvoteAnswer(answer.id)"><span class="y glyphicon glyphicon-arrow-up"></span><br>{{ answer.upvotes }}</button>
-      <button type="button" class="btn btn-default" ng-click="downvoteAnswer(answer.id)">{{ answer.downvotes }}<br><span class="x glyphicon glyphicon-arrow-down"></span></button>
+      <button type="button" class="btn btn-default" ng-click="upvoteAnswer(answer)"><span class="y glyphicon glyphicon-arrow-up"></span><br>{{ answer.upvotes }}</button>
+      <button type="button" class="btn btn-default" ng-click="downvoteAnswer(answer)">{{ answer.downvotes }}<br><span class="x glyphicon glyphicon-arrow-down"></span></button>
     </div>
   <div class="pull-left">
     <img class="media-object img-rounded comment-user-photo" src="{{ answer.avatar_url }}">
