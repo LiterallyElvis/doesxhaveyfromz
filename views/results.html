@@ -21,10 +21,10 @@
         }
     ]
    -->
-  <a ng-repeat="inquiry in inquiries" href="#">
+  <a ng-repeat="inquiry in inquiries" href="/inquiry/{{ inquiry.id }}">
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h3 class="panel-title">{{ inquiry.answer }}</h3>
+      <h3 class="panel-title">Does {{ inquiry.x }} have {{ inquiry.y }} from {{ inquiry.z }}? <strong>{{ inquiry.answer }}</strong></h3>
     </div>
     <div class="panel-body">
       Bacon ipsum dolor amet pastrami andouille bresaola meatball beef ribs short ribs shank venison boudin cow pancetta. Chuck capicola bacon filet mignon, pork chop strip steak shoulder sausage.
