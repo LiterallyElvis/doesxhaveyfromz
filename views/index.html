@@ -6,6 +6,7 @@
 
 {% block content %}
 <div class="centered-text" ng-controller="indexController">
+  <base href="/">
   <form class="form-inline" ng-submit="submitInquiry()">
     Does <input class="form-control" placeholder="{{ exampleX }}" ng-model="x" ng-change="validateInput('x', x);" />
     have <input class="form-control" placeholder="{{ exampleY }}" ng-model="y" ng-change="validateInput('y', y);" />

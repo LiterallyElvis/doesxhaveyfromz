@@ -88,13 +88,13 @@ app.controller('indexController', [
             'reusable components'
         ];
 
-        $scope.autocompletes = [];
-        $http.get("/api/autocompletes").then(function(data){
-            $scope.autocompletes = data.data;
-        }, function(error){
-            console.log('Error retrieving autocompletes:');
-            console.log(error);
-        });
+        // $scope.autocompletes = [];
+        // $http.get("/api/autocompletes").then(function(data){
+        //     $scope.autocompletes = data.data;
+        // }, function(error){
+        //     console.log('Error retrieving autocompletes:');
+        //     console.log(error);
+        // }); // one day, not today.1
 
         function generateRandomNumberWithinRange(max, min) {
             if (!min) { min = 0; }

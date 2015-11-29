@@ -1,11 +1,11 @@
 {% extends "base_layout.html" %}
 
 {% block extra_js %}
-<script src="/javascript/controllers/exampleSearchController.js"></script>
+<script src="/javascript/controllers/searchController.js"></script>
 {% endblock %}
 
 {% block content %}
-<div class="half-width centered-margin" ng-controller="searchExample">
+<div class="half-width centered-margin" ng-controller="searchController">
   <div ng-repeat="answer in answers" class="media">
     <div class="btn-group-vertical pull-right">
       <button type="button" class="btn btn-default"><span class="y glyphicon glyphicon-arrow-up"></span><br>{{ answer.upvotes }}</button>
