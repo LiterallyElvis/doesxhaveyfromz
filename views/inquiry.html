@@ -2,6 +2,11 @@
 
 {% block extra_js %}
 <script src="/javascript/controllers/inquiryController.js"></script>
+<script src="/bower/prism/prism.js"></script>
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="/bower/prism/themes/prism-okaidia.css">
 {% endblock %}
 
 {% block content %}
@@ -17,9 +22,16 @@
   </div>
     <div class="media-body media-middle">
         <p>{{ answer.summary }}</p>
-        <textarea rows="15" ng-model="answer.x_example" class="code-example pull-left"> </textarea>
-        <textarea rows="15" ng-model="answer.z_example" class="code-example pull-right"> </textarea>
+        <small ng-click="toggleExamples()">{{ toggleText }}</small><br>
+        <div ng-if="showExamples">
+          <pre style="width: 49%; float: left;">{{ answer.x }}:<p>--------</p>{{answer.x_example}}</pre>
+          <pre style="width: 49%; float: right;">{{ answer.z }}:<p>--------</p>{{answer.z_example}}</pre>
+        </div>
     </div>
   </div>
 </div>
 {% endblock %}
+
+
+
+

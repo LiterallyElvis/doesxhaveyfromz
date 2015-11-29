@@ -7,7 +7,15 @@ app.controller('inquiryController', [
 
       $http.get('/api/inquiry/' + $scope.answerId + '/answers').then(function(data){
         $scope.answers = data.data;
+        console.log(JSON.stringify($scope.answers, null, 4));
       })
+
+      $scope.toggleText = "show examples ▶"
+      $scope.showExamples = false
+      $scope.toggleExamples = function(){
+        $scope.showExamples = $scope.showExamples ? false : true;
+        $scope.toggleText = $scope.showExamples ? "hide examples ▼" : "show examples ▶";
+      }
 
       $scope.userVote = 0;
       $scope.upvoteAnswer = function(answer){
