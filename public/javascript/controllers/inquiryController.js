@@ -7,16 +7,21 @@ app.controller('inquiryController', [
 
       $http.get('/api/inquiry/' + $scope.answerId + '/answers').then(function(data){
         $scope.answers = data.data;
-        console.log(JSON.stringify($scope.answers, null, 4));
       })
 
-      $scope.toggleText = "show examples ▶"
-      $scope.showExamples = false
+
+      $scope.exampleCode = "p { color: red; }";
+
+
+      $scope.toggleText = "show examples ▶";
+      $scope.showExamples = true;
       $scope.toggleExamples = function(){
+        // ternary operators make me feel smart
         $scope.showExamples = $scope.showExamples ? false : true;
         $scope.toggleText = $scope.showExamples ? "hide examples ▼" : "show examples ▶";
       }
 
+      // these functions look a binary mess.
       $scope.userVote = 0;
       $scope.upvoteAnswer = function(answer){
         console.log('upvoteAnswer called for answer: ' + answer.id);

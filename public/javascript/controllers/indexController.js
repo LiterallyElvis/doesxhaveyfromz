@@ -99,7 +99,7 @@ app.controller('indexController', [
         // }); // one day, not today.1
 
         function generateRandomNumberWithinRange(max, min) {
-            if (!min) { min = 0; }
+            if( !min ) { min = 0; }
             return Math.floor(Math.random() * (max - min) + min);
         };
 
@@ -110,7 +110,7 @@ app.controller('indexController', [
                 $scope.warningAboutAny = 'Be advised! The following variables are marked anything: ' + $scope.varsMarkedAny + '\nThis will result in all values being returned for the other variables.';
             } else {
                 if( $scope.varsMarkedAny.indexOf(varName) != -1 ){ $scope.varsMarkedAny.splice($scope.varsMarkedAny.indexOf(varName), 1); };
-                if( $scope.varsMarkedAny.length === 0){ $scope.warnAboutAny = false; };
+                if( $scope.varsMarkedAny.length === 0 ){ $scope.warnAboutAny = false; };
                 $scope.warningAboutAny = '';
             }
         }
@@ -133,9 +133,7 @@ app.controller('indexController', [
             var xValue = generateRandomNumberWithinRange($scope.tools.length);
             var zValue = generateRandomNumberWithinRange($scope.tools.length);
 
-            if (zValue === xValue) {
-                zValue = zValue == $scope.tools.length ? zValue - 1 : zValue + 1;
-            }
+            if( zValue === xValue ){ zValue = zValue == $scope.tools.length ? zValue - 1 : zValue + 1; }
 
             $scope.exampleX = $scope.tools[xValue];
             $scope.exampleY = $scope.features[generateRandomNumberWithinRange($scope.features.length)];

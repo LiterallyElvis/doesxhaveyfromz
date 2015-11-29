@@ -15,8 +15,6 @@ app.controller('searchController', [
       $scope.inquiries = [];
       $http.get('/api/search?x=' + $scope.x + '&y=' + $scope.y + '&z=' + $scope.z).then(function(data){
         $scope.inquiries = data.data;
-        console.log('$scope.inquiries:');
-        console.log(JSON.stringify($scope.inquiries, null, 4));
       }, function(error) {
         console.log('An error occured:');
         console.log(error);
