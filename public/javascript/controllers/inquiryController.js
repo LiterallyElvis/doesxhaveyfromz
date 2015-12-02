@@ -3,7 +3,9 @@ var app = angular.module('doesxhaveyfromz');
 app.controller('inquiryController', [
     '$scope', '$http', '$location',
     function($scope, $http, $location) {
-      $scope.answerId = $location.absUrl().split('/')[$location.absUrl().split('/').length - 1];
+      $scope.answerId = $location.absUrl().split('/')[4];
+      console.log($location.absUrl());
+      console.log($scope.answerId);
 
       $http.get('/api/inquiry/' + $scope.answerId + '/answers').then(function(data){
         $scope.answers = data.data;

@@ -66,8 +66,15 @@ module.exports = function(app){
   });
 
   app.post('/api/create_inquiry', function(req, res){
-    app.db.query('insert into inquiries () values ()', [], function(err, result){
-      if( err ){ return res.status(500).json({ error: err }); }
-    })
+    console.log(req.user);
+    if( req.body && req.user && req.body.x && req.body.y && req.body.z ){
+      var queryData = [req.body.x, req.body.y, req.body.z, req.user.id, 'NOW()'];
+      console.log(queryData);
+      app.db.query('insert into inquiries (x, y, z, asked_by, asked_at) values ($1, $2, $3, $4, $5)', [req.body.x, req.body.y, req.body.z, req.user.id, 'NOW()'], function(err, result){
+        if( err ){ return res.status(500).json({ error: err }); } else {
+          return res.status(200).json({ success: 'yep' });
+        }
+      })
+    }
   });
 }

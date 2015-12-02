@@ -12,7 +12,7 @@ app.directive('prism', ['$compile', function($compile) {
             scope.$watch('source', function(v) {
               element.find("code").html(v);
 
-              Prism.highlightElement(element.find("code")[0]);
+              // Prism.highlightElement(element.find("code")[0]);
             });
 
             transclude(function(clone) {
