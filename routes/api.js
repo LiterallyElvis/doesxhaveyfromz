@@ -30,6 +30,7 @@ module.exports = function(app){
     }
     searchQuery = searchQuery.substr(0, searchQuery.lastIndexOf(' and '));
 
+    // ugh, I'm unhappy with literally all of this mess.
     analyticsQuery = analyticsQuery.substr(0, analyticsQuery.lastIndexOf(', ')) + ', time_performed) values (';
     for( var i = 1; i <= paramsToAdd.length+1; i++ ){ analyticsQuery += '$' + i + ', '; };
     analyticsQuery = analyticsQuery.substr(0, analyticsQuery.lastIndexOf(', ')) + ')';

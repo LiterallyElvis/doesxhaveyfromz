@@ -7,11 +7,11 @@ app.controller('indexController', [
         $scope.exampleY = '.get()';
         $scope.exampleZ = 'Python';
 
-        var catchAll = 'anything';
+        var catchAlls = ['anything'];
 
-        $scope.x = null;
-        $scope.y = null;
-        $scope.z = null;
+        $scope.x = '';
+        $scope.y = '';
+        $scope.z = '';
 
         $scope.varsMarkedAny = [];
         $scope.warnAboutAny = false;
@@ -96,7 +96,7 @@ app.controller('indexController', [
         // }, function(error){
         //     console.log('Error retrieving autocompletes:');
         //     console.log(error);
-        // }); // one day, not today.1
+        // }); // one day, not today.
 
         function generateRandomNumberWithinRange(max, min) {
             if( !min ) { min = 0; }
@@ -104,28 +104,29 @@ app.controller('indexController', [
         };
 
         $scope.validateInput = function(varName, xyz){
-            if( xyz.toLowerCase() === catchAll ){
+            if( catchAlls.indexOf(xyz.toLowerCase()) > -1 ){
                 $scope.varsMarkedAny.push(varName);
                 $scope.warnAboutAny = true;
                 $scope.warningAboutAny = 'Be advised! The following variables are marked anything: ' + $scope.varsMarkedAny + '\nThis will result in all values being returned for the other variables.';
             } else {
                 if( $scope.varsMarkedAny.indexOf(varName) != -1 ){ $scope.varsMarkedAny.splice($scope.varsMarkedAny.indexOf(varName), 1); };
-                if( $scope.varsMarkedAny.length === 0 ){ $scope.warnAboutAny = false; };
+                if( $scope.varsMarkedAny.length === 0 ){ $scope.warnAboutAny = false; $scope.invalidQueryError = false; };
                 $scope.warningAboutAny = '';
             }
         }
 
         $scope.submitInquiry = function(){
-            if( $scope.x.toLowerCase() === catchAll && $scope.y.toLowerCase() === catchAll && $scope.z.toLowerCase() === catchAll ){
-                console.log('invalid query parameters');
+            if( ( catchAlls.indexOf($scope.x.toLowerCase()) > -1 || $scope.x === '' ) &&
+                ( catchAlls.indexOf($scope.y.toLowerCase()) > -1 || $scope.y === '' ) &&
+                ( catchAlls.indexOf($scope.z.toLowerCase()) > -1 || $scope.z === '' ) ){
                 $scope.invalidQueryError = true;
                 $scope.invalidQueryNotice = 'At least one value must be filled out and not \'anything\'.';
             } else {
-                if( $scope.x === null ){ $scope.x = catchAll };
-                if( $scope.y === null ){ $scope.y = catchAll };
-                if( $scope.z === null ){ $scope.z = catchAll };
+                if( $scope.x === '' ){ $scope.x = catchAlls[0] };
+                if( $scope.y === '' ){ $scope.y = catchAlls[0] };
+                if( $scope.z === '' ){ $scope.z = catchAlls[0] };
 
-                $window.location.href = 'search?x=' + $scope.x + '&y=' + $scope.y + '&z=' + $scope.z
+                $window.location.href = 'search?x=' + $scope.x + '&y=' + $scope.y + '&z=' + $scope.z;
             }
         }
 

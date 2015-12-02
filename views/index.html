@@ -6,7 +6,6 @@
 
 {% block content %}
 <div class="centered-text" ng-controller="indexController">
-  <base href="/">
   <form class="form-inline" ng-submit="submitInquiry()">
     Does <input class="form-control" placeholder="{{ exampleX }}" ng-model="x" ng-change="validateInput('x', x);" />
     have <input class="form-control" placeholder="{{ exampleY }}" ng-model="y" ng-change="validateInput('y', y);" />
@@ -14,8 +13,9 @@
     <span style="margin: .5rem;">?</span>
     <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
   </form>
-  <hr ng-if="warnAboutAny || invalidQueryError">
+  <hr>
   <p><span ng-if="warnAboutAny" class="label label-warning">{{ warningAboutAny }}</span></p>
   <p><span ng-if="invalidQueryError" class="label label-danger">{{ invalidQueryNotice }}</span></p>
+  <p>Or if you'd like to answer some currently posed questions...<a href="/unanswered">you could click here</a></p>
 </div>
 {% endblock %}
