@@ -6,7 +6,6 @@ module.exports = function(app){
   	});
 	});
 
-  // inquiries
   app.get('/api/search', function(req, res){
     // this whole route is clever_girl.gif
     var catchAlls = ['anything'];

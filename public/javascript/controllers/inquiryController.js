@@ -9,11 +9,8 @@ app.controller('inquiryController', [
         $scope.answers = data.data;
       })
 
-
-      $scope.exampleCode = "p { color: red; }";
-
-
       $scope.toggleText = "show examples ▶";
+      // this could be a user-setting one day if I cared to do such a thing.
       $scope.showExamples = true;
       $scope.toggleExamples = function(){
         // ternary operators make me feel smart
@@ -21,7 +18,7 @@ app.controller('inquiryController', [
         $scope.toggleText = $scope.showExamples ? "hide examples ▼" : "show examples ▶";
       }
 
-      // these functions look a binary mess.
+      // these functions look like a binary shart.
       $scope.userVote = 0;
       $scope.upvoteAnswer = function(answer){
         console.log('upvoteAnswer called for answer: ' + answer.id);

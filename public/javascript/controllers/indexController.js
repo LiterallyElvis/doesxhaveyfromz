@@ -130,6 +130,7 @@ app.controller('indexController', [
             }
         }
 
+        // this will surely get me to the front page of dribbble
         $interval( function(){
             var xValue = generateRandomNumberWithinRange($scope.tools.length);
             var zValue = generateRandomNumberWithinRange($scope.tools.length);
