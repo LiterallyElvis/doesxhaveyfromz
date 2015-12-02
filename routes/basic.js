@@ -4,7 +4,7 @@ module.exports = function(app){
   });
 
   app.get('/search', function(req, res, next) {
-    res.render('results');
+    res.render('search');
   });
 
   app.get('/submit', function(req, res, next) {
@@ -13,10 +13,6 @@ module.exports = function(app){
 
   app.get('/unanswered', function(req, res, next) {
     res.render('unanswered');
-  });
-
-  app.get('/results', function(req, res, next) {
-    res.render('results');
   });
 
   app.get('/inquiry/:id', function(req, res){

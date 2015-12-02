@@ -6,6 +6,19 @@ module.exports = function(app){
   	});
 	});
 
+  app.get('/api/unanswered', function(req, res){
+    var analyticsQuery = "insert into inquiry_history (x, y, z, time_performed, requested_unanswered) values ($1, $1, $1, $2, $3)";
+    var analyticsParams = ['anything', 'NOW()', 'true'];
+
+    app.db.query(analyticsQuery, analyticsParams, function(err, result){ if( err ){ console.log(err) }; });
+
+    // I feel super clever and also super bad?????
+    app.db.query('select * from inquiries where answer is null', [], function(err, result){
+      if( err ){ console.log(err); return res.status(500).json({ error: err }) }
+      return res.status(200).json(result.rows)
+    });
+  })
+
   app.get('/api/search', function(req, res){
     // this whole route is clever_girl.gif
     var catchAlls = ['anything'];

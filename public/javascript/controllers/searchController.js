@@ -17,6 +17,8 @@ app.controller('searchController', [
                         });
       // every time someone like me does the above, a QA engineer's salary gets *that* much higher.
 
+      $scope.submissionUrl = '/submit' + $location.absUrl().substr($location.absUrl().indexOf('/search')+'/search'.length);
+
       $scope.x = $scope.params['x'] || catchAlls[0];
       $scope.y = $scope.params['y'] || catchAlls[0];
       $scope.z = $scope.params['z'] || catchAlls[0];

@@ -1,0 +1,18 @@
+{% extends "base_layout.html" %}
+
+{% block extra_js %}
+<script src="/javascript/controllers/unansweredController.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class="centerable-width centered-margin" ng-controller="unansweredController">
+  <h3 class="centered-text">The following questions need an answer:</h3>
+  <a ng-repeat="inquiry in inquiries" ng-show="inquiries.length" href="/inquiry/{{ inquiry.id }}">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Does {{ inquiry.x }} have {{ inquiry.y }} from {{ inquiry.z }}?</h3>
+    </div>
+  </div>
+  </a>
+</div>
+{% endblock %}
