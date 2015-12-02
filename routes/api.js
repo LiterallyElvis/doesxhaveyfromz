@@ -31,7 +31,7 @@ module.exports = function(app){
     searchQuery = searchQuery.substr(0, searchQuery.lastIndexOf(' and '));
 
     analyticsQuery = analyticsQuery.substr(0, analyticsQuery.lastIndexOf(', ')) + ', time_performed) values (';
-    for( var i = 1; i <= dataIndex; i++ ){ analyticsQuery += '$' + i + ', '; };
+    for( var i = 1; i <= paramsToAdd.length+1; i++ ){ analyticsQuery += '$' + i + ', '; };
     analyticsQuery = analyticsQuery.substr(0, analyticsQuery.lastIndexOf(', ')) + ')';
     var analyticsParams = paramsToAdd.slice(0, paramsToAdd.length)
     analyticsParams.push('NOW()')
