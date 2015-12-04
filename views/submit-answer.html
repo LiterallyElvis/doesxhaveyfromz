@@ -1,0 +1,19 @@
+{% extends "base_layout.html" %}
+
+{% block extra_js %}
+<script src="/javascript/controllers/answerSubmissionController.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class="centered-text" ng-controller="answerSubmissionController">
+  <p><h3>Does {{ x }} have {{ y }} from {{ z }}?</h3></p>
+  <form class="form-inline" ng-submit="submitNewInquiry()">
+    <div class="btn-group" role="group">
+      <button type="button" ng-repeat="answer in answerTypes" class="btn btn-default" ng-click="selectAnswerType(answer)">{{ answer }}</button>
+    </div>
+  </form>
+  <hr ng-if="warnAboutAny || invalidSubmissionError">
+  <p><span ng-if="warnAboutAny" class="label label-danger">{{ warningAboutAny }}</span></p>
+  <p><span ng-if="invalidSubmissionError" class="label label-danger">{{ invalidSubmissionNotice }}</span></p>
+</div>
+{% endblock %}

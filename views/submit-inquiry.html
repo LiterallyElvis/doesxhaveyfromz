@@ -1,11 +1,11 @@
 {% extends "base_layout.html" %}
 
 {% block extra_js %}
-<script src="/javascript/controllers/submissionController.js"></script>
+<script src="/javascript/controllers/inquirySubmissionController.js"></script>
 {% endblock %}
 
 {% block content %}
-<div class="centered-text" ng-controller="submissionController">
+<div class="centered-text" ng-controller="inquirySubmissionController">
   <form class="form-inline" ng-submit="submitNewInquiry()">
     Does <input class="form-control" ng-model="x" ng-change="validateInput('x', x);" />
     have <input class="form-control" ng-model="y" ng-change="validateInput('y', y);" />

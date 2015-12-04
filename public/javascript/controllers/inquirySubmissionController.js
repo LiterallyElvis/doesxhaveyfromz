@@ -1,6 +1,6 @@
 var app = angular.module('doesxhaveyfromz');
 
-app.controller('submissionController', [
+app.controller('inquirySubmissionController', [
     // lol this controller has the most dystopian name.
     '$scope', '$http', '$interval', '$location', '$window',
     function($scope, $http, $interval, $location, $window) {

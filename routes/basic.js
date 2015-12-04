@@ -8,11 +8,15 @@ module.exports = function(app){
   });
 
   app.get('/submit', function(req, res, next) {
-    res.render('submit');
+    res.render('submit-inquiry');
   });
 
   app.get('/unanswered', function(req, res, next) {
     res.render('unanswered');
+  });
+
+  app.get('/answer/:id', function(req, res, next) {
+    res.render('submit-answer');
   });
 
   app.get('/inquiry/:id', function(req, res){
