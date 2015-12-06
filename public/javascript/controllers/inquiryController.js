@@ -4,11 +4,14 @@ app.controller('inquiryController', [
     '$scope', '$http', '$location',
     function($scope, $http, $location) {
       $scope.answerId = $location.absUrl().split('/')[4];
-      console.log($location.absUrl());
-      console.log($scope.answerId);
+
+      if($scope.answerId.indexOf('?') > -1){ $scope.answerId = $scope.answerId.split('?')[0]}
 
       $http.get('/api/inquiry/' + $scope.answerId + '/answers').then(function(data){
         $scope.answers = data.data;
+        $scope.x = $scope.answers[0].x
+        $scope.y = $scope.answers[0].y
+        $scope.z = $scope.answers[0].z
       })
 
       $scope.toggleText = "show examples ▶";

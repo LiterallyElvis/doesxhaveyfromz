@@ -23,9 +23,7 @@ module.exports = function(app){
     // this whole route is clever_girl.gif
     var catchAlls = ['anything'];
     var validParams = ['x', 'y', 'z'];
-    if( Object.keys(req.query).length < 1 ){
-      return res.status(500).json({error: 'no search parameters set!'});
-    }
+    if( Object.keys(req.query).length < 1 ){ return res.status(500).json({error: 'no search parameters set!'}); }
 
     var paramsToAdd = [];
     var searchQuery = 'select * from inquiries where ';
@@ -61,7 +59,7 @@ module.exports = function(app){
   });
 
   app.get('/api/inquiry/:inquiry_id/answers', function(req, res){
-    app.db.query('select * from inquiries, answers join users on answers.user = users.id where inquiry_id=1 and inquiries.id=$1', [req.params.inquiry_id], function(err, result){
+    app.db.query('select * from inquiries, answers join users on answers.user = users.id where inquiry_id=$1 and inquiries.id=$1', [req.params.inquiry_id], function(err, result){
       if( err ){ return res.status(500).json({ error: err }); }
       return res.status(200).json(result.rows);
     });
