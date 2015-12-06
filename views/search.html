@@ -7,13 +7,11 @@
 {% block content %}
 <div class="centerable-width centered-margin" ng-controller="searchController">
   <h2 class="centered-text">Does {{ x }} have {{ y }} from {{ z }}?</h2>
+  <hr ng-show="inquiries.length">
   <a ng-repeat="inquiry in inquiries" ng-show="inquiries.length" href="/inquiry/{{ inquiry.id }}">
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h3 class="panel-title">Does {{ inquiry.x }} have {{ inquiry.y }} from {{ inquiry.z }}? <strong class="pull-right">{{ inquiry.answer }}</strong></h3>
-    </div>
-    <div class="panel-body">
-      Bacon ipsum dolor amet pastrami andouille bresaola meatball beef ribs short ribs shank venison boudin cow pancetta. Chuck capicola bacon filet mignon, pork chop strip steak shoulder sausage.
+      <h3 class="panel-title">Does {{ inquiry.x }} have {{ inquiry.y }} from {{ inquiry.z }}?</h3>
     </div>
   </div>
   </a>

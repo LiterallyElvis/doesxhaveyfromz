@@ -8,6 +8,7 @@ performantly on a site like this.
 Today is not that day.
 <script src="/javascript/third-party/prism.js"></script> -->
 <script src="/javascript/directives/prismDirective.js"></script>
+<script src="/javascript/filters/capitalize.js"></script>
 {% endblock %}
 
 {% block extra_css %}
@@ -19,16 +20,27 @@ Today is not that day.
   <h3 class="centered-text">Does {{ x }} have {{ y }} from {{ z }}?</h3>
   <div ng-repeat="answer in answers" class="media">
     <div class="btn-group-vertical pull-right">
-      <button type="button" class="btn btn-default" ng-click="upvoteAnswer(answer)"><span class="y glyphicon glyphicon-arrow-up"></span><br>{{ answer.upvotes }}</button>
-      <button type="button" class="btn btn-default" ng-click="downvoteAnswer(answer)">{{ answer.downvotes }}<br><span class="x glyphicon glyphicon-arrow-down"></span></button>
+      <button type="button" class="btn btn-default" ng-click="upvoteAnswer(answer)"><span class="glyphicon glyphicon-thumbs-up pull-left"></span>&nbsp;{{ answer.upvotes }}</button>
+      <button type="button" class="btn btn-default" ng-click="downvoteAnswer(answer)"><span class="glyphicon glyphicon-thumbs-down pull-left"></span>&nbsp;{{ answer.downvotes }}</button>
     </div>
   <div class="pull-left">
     <img class="media-object img-rounded comment-user-photo" src="{{ answer.avatar_url }}">
-    <p><a href="https://www.github.com/{{ answer.username }}"><small class="centered-text">{{ answer.username }}</small></a></p>
+    <p>
+      <a href="https://www.github.com/{{ answer.username }}">
+        <small class="centered-text">{{ answer.username }}</small>
+      </a>
+    <p>
   </div>
     <div class="media-body media-middle">
-        <p>{{ answer.summary }}</p>
-        <small ng-click="toggleExamples()">{{ toggleText }}</small><br>
+        <p>
+          <strong>{{ answer.answer | capitalize }}</strong>, {{ answer.summary }}<br>
+          <a href="/api/vote/unproductive/">
+            <small><small class="x">report as unproductive</small></small>
+          </a>
+        </p>
+        <small>
+          <p ng-click="toggleExamples()">{{ toggleText }}</p>
+        </small>
         <div ng-if="showExamples">
           <pre style="width: 49%; float: left;" prism source="{{answer.x_example}}" class="language-ruby"></pre>
           <pre style="width: 49%; float: left;" prism source="{{answer.z_example}}" class="language-python"></pre>
