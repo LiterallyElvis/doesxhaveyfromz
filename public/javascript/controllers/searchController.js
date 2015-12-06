@@ -29,8 +29,7 @@ app.controller('searchController', [
       $http.get('/api/search?x=' + $scope.x + '&y=' + $scope.y + '&z=' + $scope.z).then(function(data){
         $scope.inquiries = data.data;
       }, function(error) {
-        console.log('An error occured:');
-        console.log(error);
+        console.log('An error occured: \n' + error);
       })
     }
   ]

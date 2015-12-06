@@ -1,15 +1,14 @@
 .x{
-	color: Tomato;
+    color: Tomato;
 }
 
 .y{
-	color: SpringGreen;
+    color: #00C040;
 }
 
 .z{
-	color: RoyalBlue;
+    color: MediumBlue;
 }
-
 .centerable-width{
     width: 65%;
 }

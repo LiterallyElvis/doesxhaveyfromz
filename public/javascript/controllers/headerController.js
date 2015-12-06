@@ -9,7 +9,7 @@ app.controller('headerController', [
           $scope.user = data.data.user;
         }
       }, function(error){
-        console.log("there was an error: " + error);
+        console.log("there was an error checking if the user was logged in: " + error);
       })
     }
 ]);

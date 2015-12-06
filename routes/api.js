@@ -58,6 +58,13 @@ module.exports = function(app){
     });
   });
 
+  app.get('/api/inquiry/:inquiry_id', function(req, res){
+    app.db.query('select * from inquiries join users on inquiries.asked_by = users.id where inquiries.id=$1', [req.params.inquiry_id], function(err, result){
+      if( err ){ return res.status(500).json({ error: err }); }
+      return res.status(200).json(result.rows);
+    });
+  });
+
   app.get('/api/inquiry/:inquiry_id/answers', function(req, res){
     app.db.query('select * from inquiries, answers join users on answers.user = users.id where inquiry_id=$1 and inquiries.id=$1', [req.params.inquiry_id], function(err, result){
       if( err ){ return res.status(500).json({ error: err }); }
@@ -68,7 +75,7 @@ module.exports = function(app){
   app.post('/api/submit_answer/', function(req, res){
     if( req.body && req.user ){
       app.db.query('insert into answers (user, inquiry_id, answer, summary, x_example, z_example, submitted_at) values ($1, $2, $3, $4, $5)',
-                                        [req.user.id, req.body.inquiry_id, req.body.answer, req.body.x_example, req.body.z_example, 'NOW()'], function(err, result){
+                   [req.user.id, req.body.inquiry_id, req.body.answer, req.body.x_example, req.body.z_example, 'NOW()'], function(err, result){
         if( err ){ return res.status(500).json({ error: err }); } else {
           return res.status(200).json({ success: 'yep' });
         }
@@ -78,12 +85,16 @@ module.exports = function(app){
 
   app.post('/api/vote/unproductive/:answer_id', function(req, res){
     if( req.body && req.user ){
+      app.db.query('insert into answer_votes (voting_user, type, answer_id) values ($1, $2, $3)', [req.user.id, 'unproductive comment', req.params.answer_id],
+        function(err, r){
+          if(err){ console.log('error reporting unproductive comment: ' + err) }
+        }
+      )
       app.db.query('update answers set votes_as_unproductive=votes_as_unproductive + 1 where id=$1', [req.params.answer_id], function(err, result){
-        if( err ){ return res.status(500).json({ error: err }); } else {
+        if( err ){ console.log('error reporting: ' + err); return res.status(500).json({ error: err }); } else {
           return res.status(200).json({ success: 'yep' });
         }
       });
-      app.db.query('insert into votes (user, type) values($1')
     }
   });
 
