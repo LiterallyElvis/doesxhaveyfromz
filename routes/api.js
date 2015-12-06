@@ -67,7 +67,8 @@ module.exports = function(app){
 
   app.post('/api/submit_answer/', function(req, res){
     if( req.body && req.user ){
-      app.db.query('insert into answers (user, inquiry_id, answer, summary, x_example, z_example, user) values ()', [req.body.x, req.body.y, req.body.z, req.user.id, 'NOW()'], function(err, result){
+      app.db.query('insert into answers (user, inquiry_id, answer, summary, x_example, z_example, submitted_at) values ($1, $2, $3, $4, $5)',
+                                        [req.user.id, req.body.inquiry_id, req.body.answer, req.body.x_example, req.body.z_example, 'NOW()'], function(err, result){
         if( err ){ return res.status(500).json({ error: err }); } else {
           return res.status(200).json({ success: 'yep' });
         }
@@ -82,6 +83,7 @@ module.exports = function(app){
           return res.status(200).json({ success: 'yep' });
         }
       });
+      app.db.query('insert into votes (user, type) values($1')
     }
   });
 

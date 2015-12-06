@@ -14,18 +14,25 @@ module.exports = function(app){
       callbackURL: '/auth/github/callback'
     },
     function(accessToken, refreshToken, profile, done) {
-      // asynchronous verification, for effect...
       process.nextTick(function () {
-        app.db.query('select github_access_token from users where github_access_token=$1', [accessToken], function(err, read_result){
+        app.db.query('select * from users where github_access_token=$1', [accessToken], function(err, read_result){
           if(err){ console.log('error making query: ' + err); } else {
             if(read_result.rowCount === 0){
-              app.db.query('insert into users (id, email, github_access_token, username, avatar_url) values ($1, $2, $3, $4, $5)',
-                                              [profile.id, profile.emails[0].value, accessToken, profile._json.login, profile._json.avatar_url],
+              app.db.query('insert into users (id, email, github_access_token, username, avatar_url, github_user_id, created_at) values ($1, $2, $3, $4, $5, $6, $7)',
+                                              [profile.id, profile.emails[0].value, accessToken, profile._json.login, profile._json.avatar_url, profile.id, 'NOW()'],
               function(err, write_result){
                 if(err){ console.log('error inserting query: ' + err); }
                 else { return done(null, profile); }
               });
             } else {
+              app.db.query('update users set last_login=NOW() where id=$1', [read_result.rows[0].id],
+                function(err, whatever){
+                  if(err){ console.log('error updating login time: ' + err); }
+                }
+              );
+              // use our own DB id instead of Github's.
+              profile['github_id'] = profile['id'];
+              profile['id'] = read_result.rows[0].id;
               return done(null, profile);
             }
           }
@@ -53,11 +60,8 @@ module.exports = function(app){
   );
 
   app.get('/auth/logged_in', function(req, res){
-    if( req.user ){
-      res.status(200).json({user: req.user});
-    } else {
-      res.status(200).json({user: null});
-    }
+    if( req.user ){ res.status(200).json({user: req.user}); }
+    else { res.status(200).json({user: null}); }
   });
 
   app.get('/auth/logout', function(req, res){

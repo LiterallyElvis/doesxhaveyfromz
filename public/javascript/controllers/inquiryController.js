@@ -4,14 +4,10 @@ app.controller('inquiryController', [
     '$scope', '$http', '$location',
     function($scope, $http, $location) {
       $scope.answerId = $location.absUrl().split('/')[4];
-
       if($scope.answerId.indexOf('?') > -1){ $scope.answerId = $scope.answerId.split('?')[0]}
 
       $http.get('/api/inquiry/' + $scope.answerId + '/answers').then(function(data){
         $scope.answers = data.data;
-
-        console.log('answers:')
-        console.log(JSON.stringify($scope.answers, null, 4))
 
         $scope.x = $scope.answers[0].x
         $scope.y = $scope.answers[0].y

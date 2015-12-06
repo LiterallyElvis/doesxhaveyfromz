@@ -34,7 +34,7 @@ Today is not that day.
     <div class="media-body media-middle">
         <p>
           <strong>{{ answer.answer | capitalize }}</strong>, {{ answer.summary }}<br>
-          <a href="/api/vote/unproductive/">
+          <a ng-href="/api/vote/unproductive/{{answer.id}}">
             <small><small class="x">report as unproductive</small></small>
           </a>
         </p>
