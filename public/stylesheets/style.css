@@ -1,30 +1,21 @@
-.x{
-    color: Tomato;
-}
-
-.y{
-    color: #00C040;
-}
-
-.z{
-    color: MediumBlue;
-}
-.centerable-width{
+.x{ color: Tomato; }
+.y{ color: #00C040; }
+.z{ color: MediumBlue; }
+.centerable-width{ width: 65%; }
+.centered-text{ text-align: center; }
+.centered-margin{ margin: 0 auto; }
+.comment-user-photo{ max-width: 10rem; }
+.code-entry-parent{ margin: 1.5rem; }
+.code-example{ width: 49%; }
+.answer-input{
+    margin: 1rem;
     width: 65%;
+    height: 6rem;
 }
-
-.centered-text{
-	text-align: center;
-}
-
-.centered-margin{
-	margin: 0 auto;
-}
-
-.comment-user-photo{
-    max-width: 10rem;
-}
-
-.code-example{
-    width: 49%;
+.code-entry{
+    width: 35%;
+    height: 12rem;
+    background-color: #282828;
+    color: white;
+    font-family: monospace;
 }

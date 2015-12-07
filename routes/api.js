@@ -66,17 +66,49 @@ module.exports = function(app){
   });
 
   app.get('/api/inquiry/:inquiry_id/answers', function(req, res){
-    app.db.query('select * from inquiries, answers join users on answers.user = users.id where inquiry_id=$1 and inquiries.id=$1', [req.params.inquiry_id], function(err, result){
-      if( err ){ return res.status(500).json({ error: err }); }
-      return res.status(200).json(result.rows);
-    });
+    app.db.query('select answers.id, summary, x_example, z_example, answer, votes_as_unproductive, submitted_at, upvotes, downvotes, username, avatar_url from answers join users on answers.answered_by = users.id where inquiry_id=$1', [req.params.inquiry_id],
+      function(err, result){
+        if( err ){ return res.status(500).json({ error: err }); }
+        return res.status(200).json(result.rows);
+      }
+    );
   });
 
-  app.post('/api/submit_answer/', function(req, res){
+  app.post('/api/submit_answer/:inquiry_id', function(req, res){
     if( req.body && req.user ){
-      app.db.query('insert into answers (user, inquiry_id, answer, summary, x_example, z_example, submitted_at) values ($1, $2, $3, $4, $5)',
-                   [req.user.id, req.body.inquiry_id, req.body.answer, req.body.x_example, req.body.z_example, 'NOW()'], function(err, result){
-        if( err ){ return res.status(500).json({ error: err }); } else {
+      app.db.query('insert into answers (answered_by, inquiry_id, answer, summary, x_example, z_example, submitted_at) values ($1, $2, $3, $4, $5, $6, $7)',
+                   [req.user.id, req.params.inquiry_id, req.body.answer, req.body.summary, req.body.x_example, req.body.z_example, 'NOW()'], function(err, result){
+        if( err ){ console.log(err); return res.status(500).json({ error: err }); } else {
+          return res.status(200).json({ success: 'yep' });
+        }
+      });
+    }
+  });
+
+  app.post('/api/vote/up/:answer_id', function(req, res){
+    if( req.body && req.user ){
+      app.db.query('insert into answer_votes (voting_user, type, answer_id) values ($1, $2, $3)', [req.user.id, 'upvote', req.params.answer_id],
+        function(err, r){
+          if(err){ console.log('error reporting unproductive comment: ' + err) }
+        }
+      )
+      app.db.query('update answers set upvotes=upvotes + 1 where id=$1', [req.params.answer_id], function(err, result){
+        if( err ){ console.log('error reporting: ' + err); return res.status(500).json({ error: err }); } else {
+          return res.status(200).json({ success: 'yep' });
+        }
+      });
+    }
+  });
+
+  app.post('/api/vote/down/:answer_id', function(req, res){
+    if( req.body && req.user ){
+      app.db.query('insert into answer_votes (voting_user, type, answer_id) values ($1, $2, $3)', [req.user.id, 'downvote', req.params.answer_id],
+        function(err, r){
+          if(err){ console.log('error reporting unproductive comment: ' + err) }
+        }
+      )
+      app.db.query('update answers set downvotes=downvotes + 1 where id=$1', [req.params.answer_id], function(err, result){
+        if( err ){ console.log('error reporting: ' + err); return res.status(500).json({ error: err }); } else {
           return res.status(200).json({ success: 'yep' });
         }
       });

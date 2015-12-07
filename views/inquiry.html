@@ -2,16 +2,11 @@
 
 {% block extra_js %}
 <script src="/javascript/filters/capitalize.js"></script>
-<script src="/bower/ng-dialog/js/ngDialog.min.js"></script>
 <script src="/javascript/controllers/inquiryController.js"></script>
 <!-- One day, a smarter person than me will figure out how to get Prism to load
 performantly on a site like this. Today is not that day.
 <script src="/javascript/third-party/prism.js"></script> -->
 <script src="/javascript/directives/prismDirective.js"></script>
-{% endblock %}
-
-{% block extra_css %}
-<link rel="stylesheet" href="/bower/prism/themes/prism-okaidia.css">
 {% endblock %}
 
 {% block content %}
@@ -22,22 +17,23 @@ performantly on a site like this. Today is not that day.
       <span class="y">{{ inquiryInfo.y }}</span> from
       <span class="z">{{ inquiryInfo.z }}</span>?
   </h3>
+  <p class="centered-text"><a ng-href="/answer/{{ inquiryId }}">I have an answer for this!</a></p>
   <div ng-repeat="answer in answers" class="media">
     <div class="btn-group-vertical pull-right">
       <button type="button" class="btn btn-default" ng-click="upvoteAnswer(answer)"><span class="glyphicon glyphicon-thumbs-up pull-left"></span>&nbsp;{{ answer.upvotes }}</button>
       <button type="button" class="btn btn-default" ng-click="downvoteAnswer(answer)"><span class="glyphicon glyphicon-thumbs-down pull-left"></span>&nbsp;{{ answer.downvotes }}</button>
     </div>
-  <div class="pull-left">
-    <img class="media-object img-rounded comment-user-photo" src="{{ answer.avatar_url }}">
-    <p>
-      <a href="https://www.github.com/{{ answer.username }}">
-        <small class="centered-text">{{ answer.username }}</small>
-      </a>
-    <p>
-  </div>
+    <div class="pull-left">
+      <img class="media-object img-rounded comment-user-photo" src="{{ answer.avatar_url }}">
+      <p>
+        <a href="https://www.github.com/{{ answer.username }}">
+          <small class="centered-text">{{ answer.username }}</small>
+        </a>
+      <p>
+    </div>
     <div class="media-body media-middle">
         <p>
-          <strong>{{ answer.answer | capitalize }}</strong>, {{ answer.summary }}<br>
+          <strong>{{ answer.answer | capitalize }},</strong> {{ answer.summary }}<br>
           <a>
             <small ng-show="loggedIn && !userHasReportedAnswer(answer)" ng-click="reportAnswer(answer)">
               <small class="x">report as unproductive</small>
@@ -51,8 +47,8 @@ performantly on a site like this. Today is not that day.
           <a><p ng-click="toggleExamplesFor(answer)">{{ answer.pageExamples.text }}</p></a>
         </small>
         <div ng-if="answer.pageExamples.show">
-          <pre style="width: 49%; float: left;" prism source="{{answer.x_example}}" class="language-ruby"></pre>
-          <pre style="width: 49%; float: left;" prism source="{{answer.z_example}}" class="language-python"></pre>
+          <pre style="width: 49%; float: left;" prism source="{{answer.x_example}}" class="language-go"></pre>
+          <pre style="width: 49%; float: left;" prism source="{{answer.z_example}}" class="language-go"></pre>
         </div>
     </div>
   </div>

@@ -2,18 +2,63 @@
 
 {% block extra_js %}
 <script src="/javascript/controllers/answerSubmissionController.js"></script>
+<script src="/javascript/filters/capitalize.js"></script>
+<script src="/javascript/directives/prismDirective.js"></script>
 {% endblock %}
 
 {% block content %}
-<div class="centered-text" ng-controller="answerSubmissionController">
-  <p><h3>Does {{ x }} have {{ y }} from {{ z }}?</h3></p>
-  <form class="form-inline" ng-submit="submitNewInquiry()">
+<div class="centerable-width centered-margin centered-text" ng-controller="answerSubmissionController" ng-show="loggedIn">
+  <p><h3>Does
+    <span class="x">{{ inquiry.x }}</span> have
+    <span class="y">{{ inquiry.y }}</span> from
+    <span class="z">{{ inquiry.z }}</span>?</h3></p>
+  <hr>
+  <form class="form-inline" ng-submit="submitNewAnswer()">
     <div class="btn-group" role="group">
       <button type="button" ng-repeat="answer in answerTypes" class="btn btn-default" ng-click="selectAnswerType(answer)">{{ answer }}</button>
+    </div><br>
+    <input class="answer-input" type="textarea" maxlength="280" ng-model="answerSubmission.summary" ng-change="countCharacters()" required />
+    <p class="centerable-width centered-margin">
+      <small class="pull-left">remaining characters: {{ remainingCharacters }}</small>
+      <button type="submit" ng-show="submissionCanBeMade" class="btn btn-default btn-xs pull-right">submit</button>
+    </p>
+    <br>
+    <div class="code-entry-parent">
+      <p class="x" ng-show="answerSubmission.answer == 'yes'">note: because you have answered 'yes', you must submit a code example for both {{ inquiry.x }} and {{ inquiry.z }}</p>
+      <input type="textarea" ng-if="answerSubmission.answer == 'yes'" class="code-entry" ng-change="validateInput()" ng-model="answerSubmission.x_example" />
+      <input type="textarea" ng-if="answerSubmission.answer == 'yes'" class="code-entry" ng-change="validateInput()" ng-model="answerSubmission.z_example" />
     </div>
   </form>
-  <hr ng-if="warnAboutAny || invalidSubmissionError">
-  <p><span ng-if="warnAboutAny" class="label label-danger">{{ warningAboutAny }}</span></p>
   <p><span ng-if="invalidSubmissionError" class="label label-danger">{{ invalidSubmissionNotice }}</span></p>
+  <div>
+    <p><h4 class="pull-left">Preview your answer:</h4></p><br><br>
+    <div class="media">
+      <div class="btn-group-vertical pull-right">
+        <button type="button" class="btn btn-default">
+          <span class="glyphicon glyphicon-thumbs-up pull-left"></span>&nbsp;0
+        </button>
+        <button type="button" class="btn btn-default">
+          <span class="glyphicon glyphicon-thumbs-down pull-left"></span>&nbsp;0
+        </button>
+      </div>
+      <div class="pull-left">
+        <img class="media-object img-rounded comment-user-photo" src="{{ user._json.avatar_url }}">
+        <p>
+          <a href="https://www.github.com/{{ user.username }}">
+            <small class="centered-text">{{ user.username }}</small>
+          </a>
+        <p>
+      </div>
+      <div class="media-body media-middle">
+        <p class="pull-left">
+          <strong ng-if="answerSubmission.answer">{{ answerSubmission.answer | capitalize }},</strong> {{ answerSubmission.summary }}
+        </p><br><br>
+        <div>
+          <pre style="width: 49%; float: left;" ng-if="answerSubmission.answer == 'yes'" prism source="{{ answerSubmission.x_example }}" class="language-go"></pre>
+          <pre style="width: 49%; float: left;" ng-if="answerSubmission.answer == 'yes'" prism source="{{ answerSubmission.z_example }}" class="language-go"></pre>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}

@@ -15,6 +15,8 @@ app.controller('inquiryController', [
       $http.get('/api/inquiry/' + $scope.inquiryId + '/answers').then(function(data){
         $scope.answers = data.data;
 
+        console.log(JSON.stringify($scope.answers, null, 4));
+
         $scope.answers.forEach(function(answer){
           if( answer.x_example != null && answer.z_example != null ){
             answer['pageExamples'] = {show: false, text: "show examples ▶"};
@@ -58,7 +60,7 @@ app.controller('inquiryController', [
       $scope.userVotes = {};
       // these functions look like a binary shart.
       $scope.upvoteAnswer = function(answer){
-        $http.post('/api/vote/up' + answer.id, {})
+        $http.post('/api/vote/up/' + answer.id, {})
         .then(function(success){
           if( $scope.userVotes[answer.id] ){
             // user has already voted for this answer.
@@ -77,8 +79,8 @@ app.controller('inquiryController', [
       }
 
       $scope.downvoteAnswer = function(answer){
-        $http.post('/api/vote/down' + answer.id, {})
-        then(function(success){
+        $http.post('/api/vote/down/' + answer.id, {})
+        .then(function(success){
           if( $scope.userVotes[answer.id] ){
             // user has already voted for this answer.
             if( $scope.userVotes[answer.id] != -1 ){

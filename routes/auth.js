@@ -18,8 +18,8 @@ module.exports = function(app){
         app.db.query('select * from users where github_access_token=$1', [accessToken], function(err, read_result){
           if(err){ console.log('error making query: ' + err); } else {
             if(read_result.rowCount === 0){
-              app.db.query('insert into users (id, email, github_access_token, username, avatar_url, github_user_id, created_at) values ($1, $2, $3, $4, $5, $6, $7)',
-                                              [profile.id, profile.emails[0].value, accessToken, profile._json.login, profile._json.avatar_url, profile.id, 'NOW()'],
+              app.db.query('insert into users (email, github_access_token, username, avatar_url, github_user_id, created_at) values ($1, $2, $3, $4, $5, $6)',
+                                              [profile.emails[0].value, accessToken, profile._json.login, profile._json.avatar_url, profile.id, 'NOW()'],
               function(err, write_result){
                 if(err){ console.log('error inserting query: ' + err); }
                 else { return done(null, profile); }
