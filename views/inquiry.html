@@ -11,13 +11,15 @@ performantly on a site like this. Today is not that day.
 
 {% block content %}
 <div class="centerable-width centered-margin" ng-controller="inquiryController">
-  <h3 class="centered-text">
-    <a ng-href="https://github.com/{{ inquiryInfo.username }}">{{ inquiryInfo.username }}</a> asked if
-      <span class="x">{{ inquiryInfo.x }}</span> has
-      <span class="y">{{ inquiryInfo.y }}</span> from
-      <span class="z">{{ inquiryInfo.z }}</span>?
-  </h3>
-  <p class="centered-text"><a ng-href="/answer/{{ inquiryId }}">I have an answer for this!</a></p>
+  <div id="header" ng-if="inquiryInfoLoaded">
+    <h3 class="centered-text">
+      <a ng-href="https://github.com/{{ inquiryInfo.username }}">{{ inquiryInfo.username }}</a> asked if
+        <span class="x">{{ inquiryInfo.x }}</span> has
+        <span class="y">{{ inquiryInfo.y }}</span> from
+        <span class="z">{{ inquiryInfo.z }}</span>?
+    </h3>
+    <p class="centered-text"><a ng-href="/answer/{{ inquiryId }}">I have an answer for this!</a></p>
+  </div>
   <div ng-repeat="answer in answers" class="media">
     <div class="btn-group-vertical pull-right">
       <button type="button" class="btn btn-default" ng-click="upvoteAnswer(answer)"><span class="glyphicon glyphicon-thumbs-up pull-left"></span>&nbsp;{{ answer.upvotes }}</button>

@@ -6,22 +6,24 @@ app.controller('inquiryController', [
       $scope.inquiryId = $location.absUrl().split('/')[4];
       if($scope.inquiryId.indexOf('?') > -1){ $scope.inquiryId = $scope.inquiryId.split('?')[0]}
 
+      $scope.inquiryInfoLoaded = false;
       $http.get('/api/inquiry/' + $scope.inquiryId).then(function(data){
         $scope.inquiryInfo = data.data[0];
-        console.log('$scope.inquiryInfo: ');
-        console.log(JSON.stringify($scope.inquiryInfo, null, 4));
+        $scope.inquiryInfoLoaded = true;
       });
 
       $http.get('/api/inquiry/' + $scope.inquiryId + '/answers').then(function(data){
         $scope.answers = data.data;
-
-        console.log(JSON.stringify($scope.answers, null, 4));
-
         $scope.answers.forEach(function(answer){
           if( answer.x_example != null && answer.z_example != null ){
             answer['pageExamples'] = {show: false, text: "show examples ▶"};
           }
         });
+        $scope.answers.sort(function(x, y){
+          if( x.upvotes > y.upvotes ){ return -1; }
+          if( x.upvotes < y.upvotes ){ return  1; }
+          return 0;
+        })
       });
 
       $http.get('/auth/logged_in').then(function(data){
