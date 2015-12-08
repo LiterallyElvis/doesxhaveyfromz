@@ -11,7 +11,7 @@ app.controller('answerSubmissionController', [
         $scope.loggedIn = !!data.data.user;
         if(data.data.user){
           $scope.user = data.data.user;
-        } else { /* $window.location.href = '/'; */ }
+        } else { $window.location.href = '/'; }
       }, function(error){
         console.log("there was an error checking if the user was logged in: " + error);
       })
