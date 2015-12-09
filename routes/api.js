@@ -79,7 +79,7 @@ module.exports = function(app){
   app.post('/api/submit_answer/:inquiry_id', function(req, res){
     if( req.body && req.user ){
       app.db.query('insert into answers (answered_by, inquiry_id, answer, summary, x_example, z_example, submitted_at) values ($1, $2, $3, $4, $5, $6, $7)',
-                   [req.user.id, req.params.inquiry_id, req.body.answer, req.body.summary, req.body.x_example, req.body.z_example, 'NOW()'], function(err, result){
+                   [req.user.db_id, req.params.inquiry_id, req.body.answer, req.body.summary, req.body.x_example, req.body.z_example, 'NOW()'], function(err, result){
         if( err ){ console.log(err); return res.status(500).json({ error: err }); } else {
           return res.status(200).json({ success: 'yep' });
         }
@@ -135,7 +135,7 @@ module.exports = function(app){
 
   app.post('/api/vote/up/:answer_id', function(req, res){
     if( req.body && req.user ){
-      submitUpOrDownVote(req.params.answer_id, req.user.id, 'upvote', function(){
+      submitUpOrDownVote(req.params.answer_id, req.user.db_id, 'upvote', function(){
         res.status(200).json({});
       });
     } else {
@@ -145,7 +145,7 @@ module.exports = function(app){
 
   app.post('/api/vote/down/:answer_id', function(req, res){
     if( req.body && req.user ){
-      submitUpOrDownVote(req.params.answer_id, req.user.id, 'downvote', function(){
+      submitUpOrDownVote(req.params.answer_id, req.user.db_id, 'downvote', function(){
         res.status(200).json({});
       });
     } else {
@@ -155,7 +155,7 @@ module.exports = function(app){
 
   app.post('/api/vote/unproductive/:answer_id', function(req, res){
     if( req.body && req.user ){
-      app.db.query('insert into answer_votes (voting_user, inappropriate, answer_id) values ($1, $2, $3)', [req.user.id, true, req.params.answer_id],
+      app.db.query('insert into answer_votes (voting_user, inappropriate, answer_id) values ($1, $2, $3)', [req.user.db_id, true, req.params.answer_id],
         function(err, r){
           if(err){ console.log('error reporting unproductive comment: ' + err) }
         }
@@ -170,9 +170,9 @@ module.exports = function(app){
 
   app.post('/api/create_inquiry', function(req, res){
     if( req.body && req.user && req.body.x && req.body.y && req.body.z ){
-      var queryData = [req.body.x, req.body.y, req.body.z, req.user.id, 'NOW()'];
+      var queryData = [req.body.x, req.body.y, req.body.z, req.user.db_id, 'NOW()'];
       console.log(queryData);
-      app.db.query('insert into inquiries (x, y, z, asked_by, asked_at) values ($1, $2, $3, $4, $5)', [req.body.x, req.body.y, req.body.z, req.user.id, 'NOW()'], function(err, result){
+      app.db.query('insert into inquiries (x, y, z, asked_by, asked_at) values ($1, $2, $3, $4, $5)', [req.body.x, req.body.y, req.body.z, req.user.db_id, 'NOW()'], function(err, result){
         if( err ){ return res.status(500).json({ error: err }); } else {
           return res.status(200).json({ success: 'yep' });
         }

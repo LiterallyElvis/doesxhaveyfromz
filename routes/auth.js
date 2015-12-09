@@ -18,7 +18,7 @@ module.exports = function(app){
         app.db.query('select * from users where github_access_token=$1', [accessToken], function(err, read_result){
           if(err){ console.log('error making query: ' + err); } else {
             if(read_result.rowCount === 0){
-              app.db.query('insert into users (email, github_access_token, username, avatar_url, github_user_id, created_at) values ($1, $2, $3, $4, $5, $6)',
+              app.db.query('insert into users (email, github_access_token, username, avatar_url, github_user_id, last_login, created_at) values ($1, $2, $3, $4, $5, $6, $6)',
                                               [profile.emails[0].value, accessToken, profile._json.login, profile._json.avatar_url, profile.id, 'NOW()'],
               function(err, write_result){
                 if(err){ console.log('error inserting query: ' + err); }
@@ -30,9 +30,8 @@ module.exports = function(app){
                   if(err){ console.log('error updating login time: ' + err); }
                 }
               );
-              // use our own DB id instead of Github's.
               profile['github_id'] = profile['id'];
-              profile['id'] = read_result.rows[0].id;
+              profile['db_id'] = read_result.rows[0].id;
               return done(null, profile);
             }
           }
