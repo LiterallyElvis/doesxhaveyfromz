@@ -19,9 +19,9 @@ app.controller('searchController', [
 
       $scope.submissionUrl = '/submit' + $location.absUrl().substr($location.absUrl().indexOf('/search')+'/search'.length);
 
-      $scope.x = $scope.params['x'] || catchAlls[0];
-      $scope.y = $scope.params['y'] || catchAlls[0];
-      $scope.z = $scope.params['z'] || catchAlls[0];
+      $scope.x = decodeURI($scope.params['x']) || catchAlls[0];
+      $scope.y = decodeURI($scope.params['y']) || catchAlls[0];
+      $scope.z = decodeURI($scope.params['z']) || catchAlls[0];
 
       $scope.submitUrl = 'submit?x=' + $scope.x + '&y=' + $scope.y + '&z=' + $scope.z;
 
