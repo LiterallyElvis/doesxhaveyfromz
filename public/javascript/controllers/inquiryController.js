@@ -10,6 +10,9 @@ app.controller('inquiryController', [
       $http.get('/api/inquiry/' + $scope.inquiryId).then(function(data){
         $scope.inquiryInfo = data.data[0];
         $scope.inquiryInfoLoaded = true;
+        $scope.inquiryInfo.x = decodeURI($scope.inquiryInfo.x);
+        $scope.inquiryInfo.y = decodeURI($scope.inquiryInfo.y);
+        $scope.inquiryInfo.z = decodeURI($scope.inquiryInfo.z);
       });
 
       $http.get('/api/inquiry/' + $scope.inquiryId + '/answers').then(function(data){
