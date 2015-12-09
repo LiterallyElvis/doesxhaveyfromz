@@ -108,8 +108,8 @@ app.controller('indexController', [
     }
 
     var replacements = {
-      'C#': 'Csharp',
-      'F#': 'Fsharp'
+      'c#': 'Csharp',
+      'f#': 'Fsharp'
     }
 
     $scope.submitInquiry = function(){
@@ -122,12 +122,12 @@ app.controller('indexController', [
         $scope.invalidQueryError = true;
         $scope.invalidQueryNotice = 'Your x value and your Z value cannot be the same.';
       } else {
-        if( $scope.x === '' ){ $scope.x = catchAlls[0] };
-        if( $scope.y === '' ){ $scope.y = catchAlls[0] };
-        if( $scope.z === '' ){ $scope.z = catchAlls[0] };
+        if( $scope.x.trim() === '' ){ $scope.x = catchAlls[0] };
+        if( $scope.y.trim() === '' ){ $scope.y = catchAlls[0] };
+        if( $scope.z.trim() === '' ){ $scope.z = catchAlls[0] };
 
-        if( Object.keys(replacements).indexOf($scope.x) > -1 ){ $scope.x = replacements[$scope.x] }
-        if( Object.keys(replacements).indexOf($scope.z) > -1 ){ $scope.x = replacements[$scope.z] }
+        if( Object.keys(replacements).indexOf($scope.x.trim().toLowerCase()) > -1 ){ $scope.x = replacements[$scope.x] }
+        if( Object.keys(replacements).indexOf($scope.z.trim().toLowerCase()) > -1 ){ $scope.z = replacements[$scope.z] }
 
         $window.location.href = 'search?x=' + $scope.x + '&y=' + $scope.y + '&z=' + $scope.z;
       }
@@ -137,13 +137,10 @@ app.controller('indexController', [
     $interval( function(){
       var xValue = generateRandomNumberWithinRange($scope.tools.length);
       var zValue = generateRandomNumberWithinRange($scope.tools.length);
-
       if( zValue === xValue ){ zValue = zValue == $scope.tools.length ? zValue - 1 : zValue + 1; }
-
       $scope.exampleX = $scope.tools[xValue];
       $scope.exampleY = $scope.features[generateRandomNumberWithinRange($scope.features.length)];
       $scope.exampleZ = $scope.tools[zValue]
-
     }, 3000);
   }
 ]);
