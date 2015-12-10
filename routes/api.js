@@ -20,9 +20,7 @@ module.exports = function(app){
     var analyticsParams = ['anything', 'NOW()', 'true'];
 
     app.db.query(analyticsQuery, analyticsParams, function(err, result){ if( err ){ console.log(err) }; });
-
-    // I feel super clever and also super bad?????
-    app.db.query('select * from inquiries where answer is null', [], function(err, result){
+    app.db.query('select * from inquiries i where i.id not in (select inquiry_id from answers)', [], function(err, result){
       if( err ){ console.log(err); return res.status(500).json({ error: err }) }
       return res.status(200).json(result.rows);
     });
