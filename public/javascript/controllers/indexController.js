@@ -107,10 +107,11 @@ app.controller('indexController', [
       }
     }
 
+    // clever_girl.gif
     var replacements = {
-      '+': 'plus',
-      '#': 'sharp'
-    }
+      plus: /\+/g,
+      sharp: /#/g
+    };
 
     $scope.submitInquiry = function(){
       if( ( catchAlls.indexOf($scope.x.toLowerCase()) > -1 || $scope.x === '' ) &&
@@ -127,13 +128,10 @@ app.controller('indexController', [
         if( $scope.z.trim() === '' ){ $scope.z = catchAlls[0] };
 
         for(var thing in replacements){
-          $scope.x.replace(thing, replacements[thing]);
-          $scope.y.replace(thing, replacements[thing]);
-          $scope.z.replace(thing, replacements[thing]);
+          $scope.x = $scope.x.replace(replacements[thing], thing);
+          $scope.y = $scope.y.replace(replacements[thing], thing);
+          $scope.z = $scope.z.replace(replacements[thing], thing);
         }
-
-        if( Object.keys(replacements).indexOf($scope.x.trim().toLowerCase()) > -1 ){ $scope.x = replacements[$scope.x.trim().toLowerCase()] }
-        if( Object.keys(replacements).indexOf($scope.z.trim().toLowerCase()) > -1 ){ $scope.z = replacements[$scope.z.trim().toLowerCase()] }
 
         $window.location.href = 'search?x=' + $scope.x + '&y=' + $scope.y + '&z=' + $scope.z;
       }
