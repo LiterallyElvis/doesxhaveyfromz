@@ -8,6 +8,13 @@ app.controller('inquirySubmissionController', [
       var validParams = ['x', 'y', 'z'];
       $scope.params = {}
 
+      $http.get('/auth/logged_in').then(function(data){
+        var loggedIn = !!data.data.user;
+        if(!loggedIn){ $window.location.href = '/'; }
+      }, function(error){
+        console.log("there was an error checking if the user was logged in: " + error);
+      });
+
       // this is bad and I should feel bad.
       $location.absUrl().substr($location.absUrl().indexOf('/submit?')+'/submit?'.length)
                         .split('&')
@@ -50,14 +57,15 @@ app.controller('inquirySubmissionController', [
             ( catchAlls.indexOf($scope.y.toLowerCase()) > -1 || $scope.y === '' ) ||
             ( catchAlls.indexOf($scope.z.toLowerCase()) > -1 || $scope.z === '' ) ){
             $scope.invalidSubmissionError = true;
-            $scope.invalidSubmissionNotice = 'All values must be filled out and not \'anything\'.';
+            $scope.invalidSubmissionNotice = "All values must be filled out and not 'anything.'";
         } else {
           $http.post('/api/create_inquiry', { x: $scope.x, y: $scope.y, z: $scope.z }).then(
             function(data){
-              console.log('post successful')
-              console.log(data.data);
+              $window.location.href = '/inquiry/' + data.data.post_id;
             }, function(error){
-               console.log('Error submitting inquiry: ' + JSON.stringify(error, null, 4));
+              $scope.invalidSubmissionError = true;
+              $scope.invalidSubmissionNotice = 'Error submitting inquiry! It might already exist.'
+              console.log('Error submitting inquiry: ' + JSON.stringify(error, null, 4));
             }
           )
         }

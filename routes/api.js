@@ -169,16 +169,18 @@ module.exports = function(app){
   });
 
   app.post('/api/create_inquiry', function(req, res){
-    if( req.body && req.user && req.body.x && req.body.y && req.body.z ){
-      var queryData = [req.body.x, req.body.y, req.body.z, req.user.db_id, 'NOW()'];
-      console.log(queryData);
-      app.db.query('insert into inquiries (x, y, z, asked_by, asked_at) values ($1, $2, $3, $4, $5)', [req.body.x, req.body.y, req.body.z, req.user.db_id, 'NOW()'], function(err, result){
-        if( err ){ return res.status(500).json({ error: err }); } else {
-          return res.status(200).json({ success: 'yep' });
-        }
-      });
+    if( req.user ){
+      if( req.body.x && req.body.y && req.body.z ){
+        var queryData = [req.body.x, req.body.y, req.body.z, req.user.db_id, 'NOW()'];
+        app.db.query('insert into inquiries (x, y, z, asked_by, asked_at) values ($1, $2, $3, $4, $5) returning id', queryData,
+          function(err, result){
+            if( err ){ console.log('Error inserting query: ' + err); return res.status(500).json({ error: err }); }
+            else { return res.status(200).json({ post_id: result.rows[0].id }); }
+          }
+        );
+      } else { return res.status(500).json({ error: 'Invalid parameters provided.'}); }
     } else {
-      return res.status(500).json({ error: 'Invalid parameters provided.'});
+      return res.status(500).json({ error: 'Must be logged in to submit a query' });
     }
   });
 }
