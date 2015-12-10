@@ -126,8 +126,8 @@ app.controller('indexController', [
         if( $scope.y.trim() === '' ){ $scope.y = catchAlls[0] };
         if( $scope.z.trim() === '' ){ $scope.z = catchAlls[0] };
 
-        if( Object.keys(replacements).indexOf($scope.x.trim().toLowerCase()) > -1 ){ $scope.x = replacements[$scope.x] }
-        if( Object.keys(replacements).indexOf($scope.z.trim().toLowerCase()) > -1 ){ $scope.z = replacements[$scope.z] }
+        if( Object.keys(replacements).indexOf($scope.x.trim().toLowerCase()) > -1 ){ $scope.x = replacements[$scope.x.trim().toLowerCase()] }
+        if( Object.keys(replacements).indexOf($scope.z.trim().toLowerCase()) > -1 ){ $scope.z = replacements[$scope.z.trim().toLowerCase()] }
 
         $window.location.href = 'search?x=' + $scope.x + '&y=' + $scope.y + '&z=' + $scope.z;
       }
