@@ -108,8 +108,8 @@ app.controller('indexController', [
     }
 
     var replacements = {
-      'c#': 'Csharp',
-      'f#': 'Fsharp'
+      '+': 'plus',
+      '#': 'sharp'
     }
 
     $scope.submitInquiry = function(){
@@ -118,13 +118,19 @@ app.controller('indexController', [
           ( catchAlls.indexOf($scope.z.toLowerCase()) > -1 || $scope.z === '' ) ){
         $scope.invalidQueryError = true;
         $scope.invalidQueryNotice = 'At least one value must be filled out and not \'anything\'.';
-      } else if( $scope.x.toLowerCase().trim() === $scope.z.toLowerCase().trim() ){
+      } else if( $scope.x.toLowerCase().trim() === $scope.z.toLowerCase().trim() && $scope.x.toLowerCase().trim() != '' ){
         $scope.invalidQueryError = true;
         $scope.invalidQueryNotice = 'Your x value and your Z value cannot be the same.';
       } else {
         if( $scope.x.trim() === '' ){ $scope.x = catchAlls[0] };
         if( $scope.y.trim() === '' ){ $scope.y = catchAlls[0] };
         if( $scope.z.trim() === '' ){ $scope.z = catchAlls[0] };
+
+        for(var thing in replacements){
+          $scope.x.replace(thing, replacements[thing]);
+          $scope.y.replace(thing, replacements[thing]);
+          $scope.z.replace(thing, replacements[thing]);
+        }
 
         if( Object.keys(replacements).indexOf($scope.x.trim().toLowerCase()) > -1 ){ $scope.x = replacements[$scope.x.trim().toLowerCase()] }
         if( Object.keys(replacements).indexOf($scope.z.trim().toLowerCase()) > -1 ){ $scope.z = replacements[$scope.z.trim().toLowerCase()] }

@@ -7,9 +7,9 @@
 {% block content %}
 <div class="centered-text" ng-controller="indexController">
   <form class="form-inline" ng-submit="submitInquiry()">
-    Does <input class="form-control" placeholder="{{ exampleX }}" ng-model="x" ng-change="validateInput('x', x);" />
-    have <input class="form-control" placeholder="{{ exampleY }}" ng-model="y" ng-change="validateInput('y', y);" />
-    from <input class="form-control" placeholder="{{ exampleZ }}" ng-model="z" ng-change="validateInput('z', z);" />
+    Does <input class="form-control" name="x" placeholder="{{ exampleX }}" ng-model="x" ng-change="validateInput('x', x);" />
+    have <input class="form-control" name="y" placeholder="{{ exampleY }}" ng-model="y" ng-change="validateInput('y', y);" />
+    from <input class="form-control" name="z" placeholder="{{ exampleZ }}" ng-model="z" ng-change="validateInput('z', z);" />
     <span style="margin: .5rem;">?</span>
     <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
   </form>

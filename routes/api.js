@@ -8,6 +8,13 @@ module.exports = function(app){
   	});
 	});
 
+  app.get('/api/random_inquiry', function(req, res){
+    app.db.query('select * from inquiries offset random() * (select count(*) from inquiries) limit 1', [], function(err, result){
+      if( err ){ console.log(err); return res.status(500).json({ error: err }) }
+      return res.status(200).json(result.rows[0]);
+    })
+  })
+
   app.get('/api/unanswered', function(req, res){
     var analyticsQuery = "insert into inquiry_history (x, y, z, time_performed, requested_unanswered) values ($1, $1, $1, $2, $3)";
     var analyticsParams = ['anything', 'NOW()', 'true'];

@@ -7,6 +7,12 @@ app.controller('searchController', [
     var validParams = ['x', 'y', 'z'];
     $scope.params = {}
 
+    $http.get('/auth/logged_in').then(function(data){
+      $scope.loggedIn = !!data.data.user;
+    }, function(error){
+      console.log("there was an error checking if the user was logged in: " + error);
+    });
+
     // this is bad and I should feel bad.
     $location.absUrl().substr($location.absUrl().indexOf('/search?')+'/search?'.length)
                       .split('&')
@@ -17,19 +23,44 @@ app.controller('searchController', [
                       });
     // every time someone like me does the above, a QA engineer's salary gets *that* much higher.
 
-    $scope.submissionUrl = '/submit' + $location.absUrl().substr($location.absUrl().indexOf('/search')+'/search'.length);
-
     $scope.x = decodeURI($scope.params['x']) || catchAlls[0];
     $scope.y = decodeURI($scope.params['y']) || catchAlls[0];
     $scope.z = decodeURI($scope.params['z']) || catchAlls[0];
+
+    $scope.canSubmitInquiry = false;
+    if( ( catchAlls.indexOf($scope.x.toLowerCase()) === -1 || $scope.x.trim() != '' ) ||
+        ( catchAlls.indexOf($scope.y.toLowerCase()) === -1 || $scope.y.trim() != '' ) ||
+        ( catchAlls.indexOf($scope.z.toLowerCase()) === -1 || $scope.z.trim() != '' ) ){
+      $scope.canSubmitInquiry = true;
+    }
 
     $scope.submitUrl = 'submit?x=' + $scope.x + '&y=' + $scope.y + '&z=' + $scope.z;
 
     $scope.inquiries = [];
     $http.get('/api/search?x=' + $scope.x + '&y=' + $scope.y + '&z=' + $scope.z).then(function(data){
       $scope.inquiries = data.data;
+      console.log('$scope.inquiries:\n' + JSON.stringify($scope.inquiries, null, 4))
     }, function(error) {
       console.log('An error occured: \n' + error);
     })
+
+    $scope.submitNewInquiry = function(){
+      if( ( catchAlls.indexOf($scope.x.toLowerCase()) > -1 || $scope.x === '' ) ||
+          ( catchAlls.indexOf($scope.y.toLowerCase()) > -1 || $scope.y === '' ) ||
+          ( catchAlls.indexOf($scope.z.toLowerCase()) > -1 || $scope.z === '' ) ){
+          $scope.invalidSubmissionError = true;
+          $scope.invalidSubmissionNotice = "All values must be filled out and not 'anything.'";
+      } else {
+        $http.post('/api/create_inquiry', { x: $scope.x, y: $scope.y, z: $scope.z }).then(
+          function(data){
+            $window.location.href = '/inquiry/' + data.data.post_id;
+          }, function(error){
+            $scope.invalidSubmissionError = true;
+            $scope.invalidSubmissionNotice = 'Error submitting inquiry! It might already exist.'
+            console.log('Error submitting inquiry: ' + JSON.stringify(error, null, 4));
+          }
+        )
+      }
+    }
   }
 ]);
