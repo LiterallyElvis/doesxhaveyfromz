@@ -13,9 +13,9 @@
     <span style="margin: .5rem;">?</span>
     <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
   </form>
+  <p style="margin-top: 1rem;">If you'd like to answer some currently posed questions...<a href="/unanswered">you could click here</a></p>
   <hr ng-if="warnAboutAny || invalidQueryError">
   <p><span ng-if="warnAboutAny" class="label label-warning">{{ warningAboutAny }}</span></p>
   <p><span ng-if="invalidQueryError" class="label label-danger">{{ invalidQueryNotice }}</span></p>
-  <!-- <p>Or if you'd like to answer some currently posed questions...<a href="/unanswered">you could click here</a></p> -->
 </div>
 {% endblock %}

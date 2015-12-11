@@ -23,23 +23,20 @@ app.controller('searchController', [
                       });
     // every time someone like me does the above, a QA engineer's salary gets *that* much higher.
 
-    $scope.x = decodeURI($scope.params['x']) || catchAlls[0];
-    $scope.y = decodeURI($scope.params['y']) || catchAlls[0];
-    $scope.z = decodeURI($scope.params['z']) || catchAlls[0];
+    $scope.x = decodeURIComponent($scope.params['x']) || catchAlls[0];
+    $scope.y = decodeURIComponent($scope.params['y']) || catchAlls[0];
+    $scope.z = decodeURIComponent($scope.params['z']) || catchAlls[0];
 
     $scope.canSubmitInquiry = false;
-    if( ( catchAlls.indexOf($scope.x.toLowerCase()) === -1 || $scope.x.trim() != '' ) ||
-        ( catchAlls.indexOf($scope.y.toLowerCase()) === -1 || $scope.y.trim() != '' ) ||
-        ( catchAlls.indexOf($scope.z.toLowerCase()) === -1 || $scope.z.trim() != '' ) ){
+    if( ( catchAlls.indexOf($scope.x.toLowerCase()) === -1 && $scope.x.trim() != '' ) &&
+        ( catchAlls.indexOf($scope.y.toLowerCase()) === -1 && $scope.y.trim() != '' ) &&
+        ( catchAlls.indexOf($scope.z.toLowerCase()) === -1 && $scope.z.trim() != '' ) ){
       $scope.canSubmitInquiry = true;
     }
-
-    $scope.submitUrl = 'submit?x=' + $scope.x + '&y=' + $scope.y + '&z=' + $scope.z;
 
     $scope.inquiries = [];
     $http.get('/api/search?x=' + $scope.x + '&y=' + $scope.y + '&z=' + $scope.z).then(function(data){
       $scope.inquiries = data.data;
-      console.log('$scope.inquiries:\n' + JSON.stringify($scope.inquiries, null, 4))
     }, function(error) {
       console.log('An error occured: \n' + error);
     })

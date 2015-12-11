@@ -107,12 +107,6 @@ app.controller('indexController', [
       }
     }
 
-    // clever_girl.gif
-    var replacements = {
-      plus: /\+/g,
-      sharp: /#/g
-    };
-
     $scope.submitInquiry = function(){
       if( ( catchAlls.indexOf($scope.x.toLowerCase()) > -1 || $scope.x === '' ) &&
           ( catchAlls.indexOf($scope.y.toLowerCase()) > -1 || $scope.y === '' ) &&
@@ -127,15 +121,19 @@ app.controller('indexController', [
         if( $scope.y.trim() === '' ){ $scope.y = catchAlls[0] };
         if( $scope.z.trim() === '' ){ $scope.z = catchAlls[0] };
 
-        for(var thing in replacements){
-          $scope.x = $scope.x.replace(replacements[thing], thing);
-          $scope.y = $scope.y.replace(replacements[thing], thing);
-          $scope.z = $scope.z.replace(replacements[thing], thing);
-        }
-
-        $window.location.href = 'search?x=' + $scope.x + '&y=' + $scope.y + '&z=' + $scope.z;
+        $window.location.href = 'search?x=' + encodeURIComponent($scope.x) + '&y=' + encodeURIComponent($scope.y) + '&z=' + encodeURIComponent($scope.z);
       }
     }
+
+    $scope.randomInquiry = null;
+    $http.get('/api/random_inquiry').then(
+      function(data){
+        $scope.randomInquiry = data.data;
+      },
+      function(error){
+        console.log('error retrieving random inquiry: ' + error)
+      }
+    )
 
     // this will surely get me to the front page of dribbble
     $interval( function(){

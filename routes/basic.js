@@ -3,6 +3,10 @@ module.exports = function(app){
     res.render('index', { user: req.user });
   });
 
+  app.get('/unanswered', function(req, res, next) {
+    res.render('unanswered');
+  });
+
   app.get('/search', function(req, res, next) {
     res.render('search');
   });

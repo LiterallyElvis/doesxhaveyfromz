@@ -8,7 +8,7 @@
     {% block extra_css %}{% endblock %}
   </head>
   <body ng-app="doesxhaveyfromz">
-    <nav class="navbar navbar-inverse navbar-static-top" style="margin-bottom: 3.5rem;" ng-controller="headerController">
+    <nav class="navbar navbar-inverse navbar-static-top" style="margin-bottom: 2.5rem;" ng-controller="headerController">
       <div class="container-fluid">
         <div class="navbar-header">
           <a href="/" class="navbar-brand">
@@ -35,7 +35,7 @@
     {% block content %}{% endblock %}
 
     <footer class="footer navbar-fixed-bottom">
-      <div class="container centered-margin" style="width: 30%">
+      <div class="container centered-margin" style="text-align: center">
         <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
         <!-- doesxhaveyfromz -->
         <ins class="adsbygoogle"
@@ -60,6 +60,7 @@
     </script>
     <script src="/bower/angular/angular.min.js"></script>
     <script src="/javascript/controllers/headerController.js"></script>
+    <script src="/javascript/filters/titlecase.js"></script>
     {% block extra_js %}{% endblock %}
   </body>
 </html>

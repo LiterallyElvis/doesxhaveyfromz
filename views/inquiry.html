@@ -1,7 +1,6 @@
 {% extends "base_layout.html" %}
 
 {% block extra_js %}
-<script src="/javascript/filters/capitalize.js"></script>
 <script src="/javascript/controllers/inquiryController.js"></script>
 <!-- One day, a smarter person than me will figure out how to get Prism to load
 performantly on a site like this. Today is not that day.
@@ -14,9 +13,9 @@ performantly on a site like this. Today is not that day.
   <div id="header" ng-if="inquiryInfoLoaded">
     <h3 class="centered-text">
       <a ng-href="https://github.com/{{ inquiryInfo.username }}">{{ inquiryInfo.username }}</a> asked if
-        <span class="x">{{ inquiryInfo.x }}</span> has
+        <span class="x">{{ inquiryInfo.x | titlecase }}</span> has
         <span class="y">{{ inquiryInfo.y }}</span> from
-        <span class="z">{{ inquiryInfo.z }}</span>?
+        <span class="z">{{ inquiryInfo.z | titlecase }}</span>?
     </h3>
     <p class="centered-text" ng-if="loggedIn"><a ng-href="/answer/{{ inquiryId }}">I have an answer for this!</a></p>
   </div>
@@ -35,7 +34,7 @@ performantly on a site like this. Today is not that day.
     </div>
     <div class="media-body media-middle">
         <p>
-          <strong>{{ answer.answer | capitalize }},</strong> {{ answer.summary }}<br>
+          <strong>{{ answer.answer | titlecase }},</strong> {{ answer.summary }}<br>
           <a>
             <small ng-show="loggedIn && !userHasReportedAnswer(answer)" ng-click="reportAnswer(answer)">
               <small class="x">report as unproductive</small>

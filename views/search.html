@@ -6,18 +6,18 @@
 
 {% block content %}
 <div class="centerable-width centered-margin" ng-controller="searchController">
-  <h2 class="centered-text">Does {{ x }} have {{ y }} from {{ z }}?</h2>
+  <h2 class="centered-text">Does {{ x | titlecase }} have {{ y }} from {{ z | titlecase }}?</h2>
   <hr ng-show="inquiries.length">
   <a ng-repeat="inquiry in inquiries" ng-show="inquiries.length" href="/inquiry/{{ inquiry.id }}">
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h3 class="panel-title">Does {{ inquiry.x }} have {{ inquiry.y }} from {{ inquiry.z }}?</h3>
+      <h3 class="panel-title">Does {{ inquiry.x | titlecase }} have {{ inquiry.y }} from {{ inquiry.z | titlecase }}?</h3>
     </div>
   </div>
   </a>
   <div ng-show="!inquiries.length">
     <hr>
-    <div class="well well-lg">It seems nobody's asked this question yet.&nbsp;
+    <div class="well well-lg">It seems nobody's asked a question like this yet.&nbsp;
       <span ng-show="canSubmitInquiry && loggedIn">Would you like to
         <button class="btn btn-default" ng-click="submitNewInquiry()">ask it?</button>
       </span>

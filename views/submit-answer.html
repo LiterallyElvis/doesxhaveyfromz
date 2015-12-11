@@ -2,16 +2,15 @@
 
 {% block extra_js %}
 <script src="/javascript/controllers/answerSubmissionController.js"></script>
-<script src="/javascript/filters/capitalize.js"></script>
 <script src="/javascript/directives/prismDirective.js"></script>
 {% endblock %}
 
 {% block content %}
 <div class="centerable-width centered-margin centered-text" ng-controller="answerSubmissionController" ng-show="loggedIn">
   <p><h3>Does
-    <span class="x">{{ inquiry.x }}</span> have
+    <span class="x">{{ inquiry.x | titlecase }}</span> have
     <span class="y">{{ inquiry.y }}</span> from
-    <span class="z">{{ inquiry.z }}</span>?</h3></p>
+    <span class="z">{{ inquiry.z | titlecase }}</span>?</h3></p>
   <hr>
   <form class="form-inline" ng-submit="submitNewAnswer()">
     <div class="btn-group" role="group">
@@ -24,7 +23,7 @@
     </p>
     <br>
     <div class="code-entry-parent">
-      <p class="x" ng-show="answerSubmission.answer == 'yes'">note: because you have answered 'yes', you must submit a code example for both {{ inquiry.x }} and {{ inquiry.z }}</p>
+      <p class="x" ng-show="answerSubmission.answer == 'yes'">note: because you have answered 'yes', you must submit a code example for both {{ inquiry.x | titlecase }} and {{ inquiry.z | titlecase }}</p>
       <input type="textarea" ng-if="answerSubmission.answer == 'yes'" class="code-entry" ng-change="validateInput()" ng-model="answerSubmission.x_example" />
       <input type="textarea" ng-if="answerSubmission.answer == 'yes'" class="code-entry" ng-change="validateInput()" ng-model="answerSubmission.z_example" />
     </div>
@@ -51,7 +50,7 @@
       </div>
       <div class="media-body media-middle">
         <p class="pull-left">
-          <strong ng-if="answerSubmission.answer">{{ answerSubmission.answer | capitalize }},</strong> {{ answerSubmission.summary }}
+          <strong ng-if="answerSubmission.answer">{{ answerSubmission.answer | titlecase }},</strong> {{ answerSubmission.summary }}
         </p><br><br>
         <div>
           <pre style="width: 49%; float: left;" ng-if="answerSubmission.answer == 'yes'" prism source="{{ answerSubmission.x_example }}" class="language-go"></pre>

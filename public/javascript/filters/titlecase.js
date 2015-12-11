@@ -1,4 +1,6 @@
-app.filter('capitalize', function() {
+var app = angular.module('doesxhaveyfromz');
+
+app.filter('titlecase', function() {
     return function(input) {
       return (!!input) ? input.charAt(0).toUpperCase() + input.substr(1).toLowerCase() : '';
     }
