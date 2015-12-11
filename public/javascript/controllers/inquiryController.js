@@ -27,6 +27,7 @@ app.controller('inquiryController', [
         if( x.upvotes < y.upvotes ){ return  1; }
         return 0;
       })
+      $scope.answers[0].pageExamples = {show: true, text: "hide examples ▼"};
     });
 
     $http.get('/auth/logged_in').then(function(data){
