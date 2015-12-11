@@ -37,6 +37,9 @@ app.controller('searchController', [
     $scope.inquiries = [];
     $http.get('/api/search?x=' + $scope.x + '&y=' + $scope.y + '&z=' + $scope.z).then(function(data){
       $scope.inquiries = data.data;
+      if( $scope.inquiries.length == 1 ){
+        $window.location.href = '/inquiry/' + $scope.inquiries[0].id;
+      }
     }, function(error) {
       console.log('An error occured: \n' + error);
     })
