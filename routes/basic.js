@@ -12,7 +12,11 @@ module.exports = function(app){
   });
 
   app.get('/answer/:id', function(req, res, next) {
-    res.render('submit-answer');
+    if( !req.user ){
+      res.render('index');
+    } else {
+      res.render('submit-answer');
+    }
   });
 
   app.get('/inquiry/:id', function(req, res){
