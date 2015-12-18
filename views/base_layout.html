@@ -16,18 +16,21 @@
           </a>
         </div>
         <ul class="nav navbar-nav navbar-right">
-          <li ng-if="!loggedIn">
+          {% if user %}
+          <li>
+            <a href="#">
+              <img style="max-width: 2rem;" src="<$ user._json.avatar_url $>" class="img-rounded"> <$ user.username $>
+            </a>
+          </li>
+          {% else %}
+          <li>
             <!-- Icons made by Dave Gandy: http://www.flaticon.com/authors/dave-gandy
             taken from www.flaticon.com
             licensed by CC BY 3.0 -->
 
             <a href="/auth/signin"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABhElEQVQ4T51T0VUCMRDcTQNiBWgFYAWcFYgVQJIC1ArUCpQCkkAFYgVCBWAFYgWeDdz45l6Oh6fwfOYvu9nZmZ2Nyi8nhDAWkYGqnjANYKOqC+fcrP1cdwMsVNUHEen8BiwiJYAb7/20yW8BYowMjvYUfgsDmHrvLYM1QAjhmp0BvJMqgKGqHu1WAfhU1WnOdQFYMtGUUgfAR348cc5dMyYifWvtgvGUUiEia2ttGWN8FJGrurvqsYYQ7lT1NgM8O+eGh2TEGOcicpGHe68xRnYZZMQza+36EEBKqQ9gld8syaBs9DrnvrmyDyjGiJwryaC5yD8AhAy4JN0s4dRau/mrhNq11lDm3vvLfQDZsScRoSs8M9pYAHgRkQmAgvOg30w2bFJKXOkRAK54vd6Z8Xk9tOxET1XPq6qiTR1jDPeglkMAAG8tZkvnXFEDkFpVVbRvZYyxXJi2jN1hU3tuUG5tyyALVe2xuO1IAwDg1RhTNE1++J5/5Jj0dllQZv5E25/I/BeoPtrfU3pXnAAAAABJRU5ErkJggg=="/> Sign In With Github</a>
           </li>
-          <li ng-if="loggedIn">
-            <a href="#">
-              <img style="max-width: 2rem;" src="{{ user._json.avatar_url }}" class="img-rounded"> {{ user.username }}
-            </a>
-          </li>
+          {% endif %}
         </ul>
       </div>
     </nav>
