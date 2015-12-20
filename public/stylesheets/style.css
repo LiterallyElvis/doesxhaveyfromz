@@ -1,6 +1,7 @@
 .x{ color: Tomato; }
 .y{ color: #00C040; }
 .z{ color: MediumBlue; }
+.hide{ display: none; }
 .centerable-width{ width: 65%; }
 .centered-text{ text-align: center; }
 .centered-margin{ margin: 0 auto; }
@@ -13,9 +14,15 @@
     height: 6rem;
 }
 .code-entry{
-    width: 35%;
+    width: 40%;
     height: 12rem;
     background-color: #282828;
     color: white;
     font-family: monospace;
 }
+[ng\:cloak],
+[ng-cloak],
+[data-ng-cloak],
+[x-ng-cloak],
+.ng-cloak,
+.x-ng-cloak{ display: none !important }

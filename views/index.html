@@ -1,21 +1,17 @@
 {% extends "base_layout.html" %}
 
-{% block extra_js %}
-<script src="/javascript/controllers/indexController.js"></script>
-{% endblock %}
-
 {% block content %}
 <div class="centered-text" ng-controller="indexController">
   <form class="form-inline" ng-submit="submitInquiry()">
-    Does <input class="form-control" name="x" placeholder="{{ exampleX }}" ng-model="x" ng-change="validateInput('x', x);" />
-    have <input class="form-control" name="y" placeholder="{{ exampleY }}" ng-model="y" ng-change="validateInput('y', y);" />
-    from <input class="form-control" name="z" placeholder="{{ exampleZ }}" ng-model="z" ng-change="validateInput('z', z);" />
+    Does <input class="form-control" id="x" placeholder="Ruby" ng-model="x" ng-change="validateInput('x', x);" />
+    have <input class="form-control" id="y" placeholder=".get()" ng-model="y" ng-change="validateInput('y', y);" />
+    from <input class="form-control" id="z" placeholder="Python" ng-model="z" ng-change="validateInput('z', z);" />
     <span style="margin: .5rem;">?</span>
     <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
   </form>
-  <p style="margin-top: 1rem;">If you'd like to answer some currently posed questions...<a href="/unanswered">you could click here</a></p>
+  <p style="margin-top: 1rem;">If you'd like to answer some currently posed questions...<a href="/unanswered">you can click here</a></p>
   <hr ng-if="warnAboutAny || invalidQueryError">
-  <p><span ng-if="warnAboutAny" class="label label-warning">{{ warningAboutAny }}</span></p>
-  <p><span ng-if="invalidQueryError" class="label label-danger">{{ invalidQueryNotice }}</span></p>
+  <p><span ng-if="warnAboutAny" class="label label-warning" ng-bind="warningAboutAny"></span></p>
+  <p><span ng-if="invalidQueryError" class="label label-danger" ng-bind="invalidQueryNotice"></span></p>
 </div>
 {% endblock %}

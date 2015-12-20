@@ -1,12 +1,8 @@
 var app = angular.module('doesxhaveyfromz');
 
 app.controller('indexController', [
-  '$scope', '$http', '$interval', '$window',
-  function($scope, $http, $interval, $window) {
-    $scope.exampleX = 'Ruby';
-    $scope.exampleY = '.get()';
-    $scope.exampleZ = 'Python';
-
+  '$scope', '$window',
+  function($scope, $window) {
     var catchAlls = ['anything'];
 
     $scope.x = '';
@@ -90,11 +86,6 @@ app.controller('indexController', [
       'reusable components'
     ];
 
-    function generateRandomNumberWithinRange(max, min) {
-      if( !min ) { min = 0; }
-      return Math.floor(Math.random() * (max - min) + min);
-    };
-
     $scope.validateInput = function(varName, xyz){
       if( catchAlls.indexOf(xyz.toLowerCase()) > -1 ){
         $scope.varsMarkedAny.push(varName);
@@ -105,7 +96,7 @@ app.controller('indexController', [
         if( $scope.varsMarkedAny.length === 0 ){ $scope.warnAboutAny = false; $scope.invalidQueryError = false; };
         $scope.warningAboutAny = '';
       }
-    }
+    };
 
     $scope.submitInquiry = function(){
       if( ( catchAlls.indexOf($scope.x.toLowerCase()) > -1 || $scope.x === '' ) &&
@@ -123,26 +114,30 @@ app.controller('indexController', [
 
         $window.location.href = 'search?x=' + encodeURIComponent($scope.x) + '&y=' + encodeURIComponent($scope.y) + '&z=' + encodeURIComponent($scope.z);
       }
-    }
+    };
 
-    $scope.randomInquiry = null;
-    $http.get('/api/random_inquiry').then(
-      function(data){
-        $scope.randomInquiry = data.data;
-      },
-      function(error){
-        console.log('error retrieving random inquiry: ' + error)
-      }
-    )
+    function generateRandomNumberWithinRange(max, min) {
+      if( !min ) { min = 0; }
+      return Math.floor(Math.random() * (max - min) + min);
+    };
+
+    var x = document.getElementById("x");
+    var y = document.getElementById("y");
+    var z = document.getElementById("z");
 
     // this will surely get me to the front page of dribbble
-    $interval( function(){
+    setInterval(function() {
+
       var xValue = generateRandomNumberWithinRange($scope.tools.length);
       var zValue = generateRandomNumberWithinRange($scope.tools.length);
-      if( zValue === xValue ){ zValue = zValue == $scope.tools.length ? zValue - 1 : zValue + 1; }
-      $scope.exampleX = $scope.tools[xValue];
-      $scope.exampleY = $scope.features[generateRandomNumberWithinRange($scope.features.length)];
-      $scope.exampleZ = $scope.tools[zValue]
+
+      if (zValue === xValue) {
+          zValue = zValue == $scope.tools.length ? --zValue : ++zValue
+      }
+
+      x.placeholder = $scope.tools[xValue];
+      y.placeholder = $scope.features[generateRandomNumberWithinRange($scope.features.length)];
+      z.placeholder = $scope.tools[zValue];
     }, 3000);
   }
 ]);

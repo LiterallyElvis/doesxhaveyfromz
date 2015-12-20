@@ -1,14 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title></title>
-    <link rel="stylesheet" href="/bower/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/stylesheets/style.css">
-    <link rel="stylesheet" href="/bower/prism/themes/prism-okaidia.css">
-    {% block extra_css %}{% endblock %}
+    <title><$ title $></title>
   </head>
   <body ng-app="doesxhaveyfromz">
-    <nav class="navbar navbar-inverse navbar-static-top" style="margin-bottom: 2.5rem;" ng-controller="headerController">
+    <nav class="navbar navbar-inverse navbar-static-top" style="margin-bottom: 2.5rem;">
       <div class="container-fluid">
         <div class="navbar-header">
           <a href="/" class="navbar-brand">
@@ -16,25 +12,26 @@
           </a>
         </div>
         <ul class="nav navbar-nav navbar-right">
-          <li ng-if="!loggedIn">
-            <!-- Icons made by Dave Gandy: http://www.flaticon.com/authors/dave-gandy
-            taken from www.flaticon.com
-            licensed by CC BY 3.0 -->
-
-            <a href="/auth/signin"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABhElEQVQ4T51T0VUCMRDcTQNiBWgFYAWcFYgVQJIC1ArUCpQCkkAFYgVCBWAFYgWeDdz45l6Oh6fwfOYvu9nZmZ2Nyi8nhDAWkYGqnjANYKOqC+fcrP1cdwMsVNUHEen8BiwiJYAb7/20yW8BYowMjvYUfgsDmHrvLYM1QAjhmp0BvJMqgKGqHu1WAfhU1WnOdQFYMtGUUgfAR348cc5dMyYifWvtgvGUUiEia2ttGWN8FJGrurvqsYYQ7lT1NgM8O+eGh2TEGOcicpGHe68xRnYZZMQza+36EEBKqQ9gld8syaBs9DrnvrmyDyjGiJwryaC5yD8AhAy4JN0s4dRau/mrhNq11lDm3vvLfQDZsScRoSs8M9pYAHgRkQmAgvOg30w2bFJKXOkRAK54vd6Z8Xk9tOxET1XPq6qiTR1jDPeglkMAAG8tZkvnXFEDkFpVVbRvZYyxXJi2jN1hU3tuUG5tyyALVe2xuO1IAwDg1RhTNE1++J5/5Jj0dllQZv5E25/I/BeoPtrfU3pXnAAAAABJRU5ErkJggg=="/> Sign In With Github</a>
-          </li>
-          <li ng-if="loggedIn">
+          {% if user %}
+          <li>
             <a href="#">
-              <img style="max-width: 2rem;" src="{{ user._json.avatar_url }}" class="img-rounded"> {{ user.username }}
+              <img style="max-width: 2rem;" src="<$ user._json.avatar_url $>" class="img-rounded">&nbsp;<$ user.username $>
             </a>
           </li>
+          {% else %}
+          <li>
+            <!-- Icons made by Dave Gandy: http://www.flaticon.com/authors/dave-gandy. Taken from www.flaticon.com. Licensed by CC BY 3.0 -->
+            <a href="/auth/signin"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABhElEQVQ4T51T0VUCMRDcTQNiBWgFYAWcFYgVQJIC1ArUCpQCkkAFYgVCBWAFYgWeDdz45l6Oh6fwfOYvu9nZmZ2Nyi8nhDAWkYGqnjANYKOqC+fcrP1cdwMsVNUHEen8BiwiJYAb7/20yW8BYowMjvYUfgsDmHrvLYM1QAjhmp0BvJMqgKGqHu1WAfhU1WnOdQFYMtGUUgfAR348cc5dMyYifWvtgvGUUiEia2ttGWN8FJGrurvqsYYQ7lT1NgM8O+eGh2TEGOcicpGHe68xRnYZZMQza+36EEBKqQ9gld8syaBs9DrnvrmyDyjGiJwryaC5yD8AhAy4JN0s4dRau/mrhNq11lDm3vvLfQDZsScRoSs8M9pYAHgRkQmAgvOg30w2bFJKXOkRAK54vd6Z8Xk9tOxET1XPq6qiTR1jDPeglkMAAG8tZkvnXFEDkFpVVbRvZYyxXJi2jN1hU3tuUG5tyyALVe2xuO1IAwDg1RhTNE1++J5/5Jj0dllQZv5E25/I/BeoPtrfU3pXnAAAAABJRU5ErkJggg=="/> Sign In With Github</a>
+          </li>
+          {% endif %}
         </ul>
       </div>
     </nav>
-
     {% block content %}{% endblock %}
-
-    <footer class="footer navbar-fixed-bottom">
+    <link rel="stylesheet" href="/bower/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/bower/prism/themes/prism-okaidia.css">
+    <style>.x{color:Tomato}.y{color:#00C040}.z{color:MediumBlue}.hide{display:none}.centerable-width{width:65%}.centered-text{text-align:center}.centered-margin{margin:0 auto}.comment-user-photo{max-width:10rem}.code-entry-parent{margin:1.5rem}.code-example{width:49%}.answer-input{margin:1rem;width:65%;height:6rem}.code-entry{width:40%;height:12rem;background-color:#282828;color:white;font-family:monospace}[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak{display:none !important}</style>
+    <footer class="footer navbar-fixed-bottom" style="background-color: white">
       <div class="container centered-margin" style="text-align: center">
         <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
         <!-- doesxhaveyfromz -->
@@ -48,19 +45,16 @@
         <p class="centered-text">Created by <a href="//github.com/LiterallyElvis">LiterallyElvis</a>. Report bugs <a href="https://github.com/LiterallyElvis/doesxhaveyfromz/issues/new">on Github</a> or </a><a href="http://twitter.com/home/?status=@literallyelvis%20your%20site%20is%20broken%20in%20the%20following%20ways:">via tweet</a>.</p>
       </div>
     </footer>
-
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
       ga('create', 'UA-51264238-2', 'auto');
       ga('send', 'pageview');
     </script>
     <script src="/bower/angular/angular.min.js"></script>
-    <script src="/javascript/controllers/headerController.js"></script>
-    <script src="/javascript/filters/titlecase.js"></script>
+    <script src="/javascript/app.js"></script>
     {% block extra_js %}{% endblock %}
   </body>
 </html>

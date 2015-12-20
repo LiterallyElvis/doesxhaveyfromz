@@ -1,18 +1,25 @@
 {% extends "base_layout.html" %}
 
-{% block extra_js %}
-<script src="/javascript/controllers/unansweredController.js"></script>
-{% endblock %}
-
 {% block content %}
-<div class="centerable-width centered-margin" ng-controller="unansweredController">
-  <h3 class="centered-text">The following questions haven't had any answers yet:</h3>
-  <a ng-repeat="inquiry in inquiries" ng-show="inquiries.length" href="/inquiry/{{ inquiry.id }}">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title">Does {{ inquiry.x | titlecase }} have {{ inquiry.y }} from {{ inquiry.z | titlecase }}?</h3>
-    </div>
-  </div>
-  </a>
+<div class="centerable-width centered-margin">
+  {% if unansweredsExist %}
+    <h3 class="centered-text">The following questions haven't had any answers yet:</h3>
+  {% endif %}
+  {% for inquiry in inquiries %}
+    <a href="/inquiry/<$ inquiry.id $>">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Does <$ inquiry.x | capitalize $> have <$ inquiry.y $> from <$ inquiry.z | capitalize $>?</h3>
+        </div>
+      </div>
+    </a>
+  {% else %}
+    <p>It appears that no questions are currently unanswered. Yay, community!</p>
+    {% if user %}
+      <p>Maybe you'd like to ask a new one?</p>
+    {% else %}
+      <p>Sign in to ask a question of your own!</p>
+    {% endif %}
+  {% endfor %}
 </div>
 {% endblock %}
