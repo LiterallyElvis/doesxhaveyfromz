@@ -1,13 +1,5 @@
 {% extends "base_layout.html" %}
 
-{% block extra_js %}
-<script src="/javascript/controllers/inquiryController.js"></script>
-<!-- One day, a smarter person than me will figure out how to get Prism to load
-performantly on a site like this. Today is not that day.
-<script src="/javascript/third-party/prism.js"></script> -->
-<script src="/javascript/directives/prismDirective.js"></script>
-{% endblock %}
-
 {% block content %}
 <div class="centerable-width centered-margin" ng-controller="inquiryController">
   <div id="header">
@@ -26,6 +18,14 @@ performantly on a site like this. Today is not that day.
 
   {% for answer in answers %}
     <div class="media">
+      <div class="pull-left">
+        <img class="media-object img-rounded comment-user-photo" src="<$ answer.avatar_url $>">
+        <p>
+          <a href="https://www.github.com/<$ answer.username $>">
+            <small class="centered-text"><$ answer.username $></small>
+          </a>
+        <p>
+      </div>
       <div class="btn-group-vertical pull-right">
         {% if user %}
           <button type="button" class="btn btn-default" ng-click="upvoteAnswer(<$ answer.id $>)"><span class="glyphicon glyphicon-thumbs-up pull-left"></span>&nbsp;<$ answer.upvotes $></button>
@@ -35,30 +35,22 @@ performantly on a site like this. Today is not that day.
           <button type="button" class="btn btn-default" disabled ng-click="downvoteAnswer(<$ answer.id $>)"><span class="glyphicon glyphicon-thumbs-down pull-left"></span>&nbsp;<$ answer.downvotes $></button>
         {% endif %}
       </div>
-      <div class="pull-left">
-        <img class="media-object img-rounded comment-user-photo" src="<$ answer.avatar_url $>">
-        <p>
-          <a href="https://www.github.com/<$ answer.username $>">
-            <small class="centered-text"><$ answer.username $></small>
-          </a>
-        <p>
-      </div>
-      <div class="media-body media-middle">
+      <div>
           <p>
             <strong><$ answer.answer | capitalize $>,</strong> <$ answer.summary $><br>
-            <a>
-              {% if user %}
-                <small ng-show="!userHasReportedAnswer(<$ answer.id $>)" ng-click="reportAnswer(<$ answer.id $>)">
-                  <small class="x">report as unproductive</small>
-                </small>
-              {% else %}
-                <small><small>sign in to report</small></small>
-              {% endif %}
-            </a>
+            {% if user %}
+              <a><small ng-show="!userHasReportedAnswer(<$ answer.id $>)" ng-click="reportAnswer(<$ answer.id $>)">
+                <small class="x">report as unproductive</small>
+              </small></a>
+            {% else %}
+              <a><small><small>sign in to report</small></small></a>
+            {% endif %}
           </p>
-          {% if answer.answer == "yes" %}
-              <pre style="width: 49%; float: left;" prism source="<$ answer.x_example $>" class="language-go"></pre>
-              <pre style="width: 49%; float: left;" prism source="<$ answer.z_example $>" class="language-go"></pre>
+          {% if answer.x_example or answer.z_example %}
+          <div>
+            <pre style="float: left;" prism class="code-entry language-go"><$ answer.x_example $></pre>
+            <pre style="float: right;" prism class="code-entry language-go"><$ answer.z_example $></pre>
+          </div>
           {% endif %}
       </div>
     </div>

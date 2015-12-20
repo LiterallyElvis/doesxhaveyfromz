@@ -1,9 +1,5 @@
 {% extends "base_layout.html" %}
 
-{% block extra_js %}
-<script src="/javascript/controllers/searchController.js"></script>
-{% endblock %}
-
 {% block content %}
 <div class="centerable-width centered-margin" ng-controller="searchController">
   <input type="hidden" name="x" value="<$ inquiry.x $>">

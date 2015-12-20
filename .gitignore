@@ -3,3 +3,4 @@ node_modules/
 public/bower
 npm-debug.log
 views/uncompiled
+public/javascript/app.js

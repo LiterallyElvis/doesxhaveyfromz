@@ -86,6 +86,10 @@ module.exports = function(app){
             if( x.upvotes < y.upvotes ){ return  1; }
             return 0;
           });
+          answers.data.forEach(function(answer){
+            answer.x_example = unescape(answer.x_example);
+            answer.z_example = unescape(answer.z_example);
+          })
           callback(null, answers.data);
         });
       },

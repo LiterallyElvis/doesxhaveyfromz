@@ -1,10 +1,5 @@
 {% extends "base_layout.html" %}
 
-{% block extra_js %}
-<script src="/javascript/controllers/answerSubmissionController.js"></script>
-<script src="/javascript/directives/prismDirective.js"></script>
-{% endblock %}
-
 {% block content %}
 <div class="centerable-width centered-margin centered-text" ng-controller="answerSubmissionController">
   <input type="hidden" name="inquiryId" value="<$ inquiryId $>">

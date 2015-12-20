@@ -1,9 +1,5 @@
 {% extends "base_layout.html" %}
 
-{% block extra_js %}
-<script src="/javascript/controllers/indexController.js"></script>
-{% endblock %}
-
 {% block content %}
 <div class="centered-text" ng-controller="indexController">
   <form class="form-inline" ng-submit="submitInquiry()">
