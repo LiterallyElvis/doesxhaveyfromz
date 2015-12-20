@@ -1,8 +1,8 @@
 var app = angular.module('doesxhaveyfromz');
 
 app.controller('indexController', [
-  '$scope', '$http', '$interval', '$window',
-  function($scope, $http, $interval, $window) {
+  '$scope', '$interval', '$window',
+  function($scope, $interval, $window) {
     $scope.exampleX = 'Ruby';
     $scope.exampleY = '.get()';
     $scope.exampleZ = 'Python';
@@ -105,7 +105,7 @@ app.controller('indexController', [
         if( $scope.varsMarkedAny.length === 0 ){ $scope.warnAboutAny = false; $scope.invalidQueryError = false; };
         $scope.warningAboutAny = '';
       }
-    }
+    };
 
     $scope.submitInquiry = function(){
       if( ( catchAlls.indexOf($scope.x.toLowerCase()) > -1 || $scope.x === '' ) &&
@@ -123,17 +123,7 @@ app.controller('indexController', [
 
         $window.location.href = 'search?x=' + encodeURIComponent($scope.x) + '&y=' + encodeURIComponent($scope.y) + '&z=' + encodeURIComponent($scope.z);
       }
-    }
-
-    $scope.randomInquiry = null;
-    $http.get('/api/random_inquiry').then(
-      function(data){
-        $scope.randomInquiry = data.data;
-      },
-      function(error){
-        console.log('error retrieving random inquiry: ' + error)
-      }
-    )
+    };
 
     // this will surely get me to the front page of dribbble
     $interval( function(){

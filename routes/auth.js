@@ -46,22 +46,11 @@ module.exports = function(app){
   );
 
   app.get('/auth/github/callback',
-    passport.authenticate('github', { failureRedirect: '/auth/error' }),
+    passport.authenticate('github', { failureRedirect: '/' }),
     function(req, res) {
-      res.redirect('/');
+      res.redirect(req.header('Referer'));
     }
   );
-
-  app.get('/auth/error',
-    function(req, res) {
-      res.send('TODO: Proper error messages');
-    }
-  );
-
-  app.get('/auth/logged_in', function(req, res){
-    if( req.user ){ res.status(200).json({user: req.user}); }
-    else { res.status(200).json({user: null}); }
-  });
 
   app.get('/auth/logout', function(req, res){
     req.logout();

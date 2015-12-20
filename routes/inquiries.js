@@ -2,7 +2,7 @@ module.exports = function(app){
   app.inquiryFunctions = {};
 
   var logAndReturnError = function(err){
-    console.log(error);
+    console.log(err);
     return {
       status: 500,
       data: { error: err }

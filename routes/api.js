@@ -1,41 +1,6 @@
 var async = require('async');
 
 module.exports = function(app){
-  // app.get('/api/autocompletes', function(req, res) {
-  //   return res.status(200).json({ message: 'feature incomplete' });
-  //   // app.tasks.retrieveAutocomplete(res);
-  // });
-
-  // app.get('/api/random_inquiry', function(req, res){
-  //   app.inquiryFunctions.retrieveRandomInquiry(function(randomInquiry){
-  //     return res.status(randomInquiry.status).json(randomInquiry.data);
-  //   });
-  // })
-
-  // app.get('/api/unanswered', function(req, res){
-  //   app.inquiryFunctions.retrieveUnansweredInquiries(function(unansweredInquiries){
-  //     return res.status(unansweredInquiries.status).json(unansweredInquiries.data);
-  //   });
-  // });
-
-  // app.get('/api/search', function(req, res){
-  //   app.inquiryFunctions.searchForInquiry(req, function(searchResults){
-  //     return res.status(searchResults.status).json(searchResults.data);
-  //   });
-  // });
-
-  // app.get('/api/inquiry/:inquiry_id', function(req, res){
-  //   app.inquiryFunctions.retrieveInquiryData(req, function(inquiryData){
-  //     return res.status(inquiryData.status).json(inquiryData.data);
-  //   });
-  // });
-
-  // app.get('/api/inquiry/:inquiry_id/answers', function(req, res){
-  //   app.inquiryFunctions.retrieveAnswerForInquiryId(req, function(answers){
-  //     return res.status(answers.status).json(answers.data);
-  //   });
-  // });
-
   app.post('/api/submit_answer/:inquiry_id', function(req, res){
     if( req.body && req.user ){
       app.inquiryFunctions.submitInquiry(req, function(success){

@@ -14,7 +14,7 @@ module.exports = function(app){
   app.get('/unanswered', function(req, res) {
     var pageData = {
       user: req.user,
-      title: 'Does anything have anything from anything else?'
+      title: 'Does anything have something from anything else?'
     }
 
     app.inquiryFunctions.retrieveUnansweredInquiries(function(unanswereds){
@@ -49,15 +49,20 @@ module.exports = function(app){
     });
   });
 
-  app.get('/answer/:id', function(req, res) {
+  app.get('/answer/:inquiry_id', function(req, res) {
     if( !req.user ){
-      res.render('index');
+      res.redirect('/');
     } else {
       var pageData = {
         user: req.user,
-        inquiryId: req.params.id
+        inquiryId: req.params.inquiry_id
       }
-      res.render('submit-answer', pageData);
+
+      app.inquiryFunctions.retrieveInquiryData(req, function(inquiry){
+        pageData.inquiry = inquiry.data;
+        pageData.title = 'Answering if ' + pageData.inquiry.x + ' has ' + pageData.inquiry.y + ' from ' + pageData.inquiry.z;
+        res.render('submit-answer', pageData);
+      });
     }
   });
 
@@ -87,8 +92,7 @@ module.exports = function(app){
       complete: ['inquiryData', 'answerData', function(callback, results){
         pageData.inquiry = results.inquiryData;
         pageData.answers = results.answerData;
-        console.log('complete pageData:');
-        console.dir(pageData.inquiry);
+        pageData.title = 'Does ' + pageData.inquiry.x + ' have ' + pageData.inquiry.y + ' from ' + pageData.inquiry.z + '?';
         res.render('inquiry', pageData);
       }]
     });

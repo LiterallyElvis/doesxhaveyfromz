@@ -4,32 +4,15 @@ app.controller('answerSubmissionController', [
   '$scope', '$http', '$interval', '$location', '$window',
   function($scope, $http, $interval, $location, $window) {
     $scope.characterLimit = 280;
-    $scope.questionId = $location.absUrl().split('/')[4];
-    if($scope.questionId.indexOf('?') > -1){ $scope.questionId = $scope.questionId.split('?')[0] }
-
-    $http.get('/auth/logged_in').then(function(data){
-      $scope.loggedIn = !!data.data.user;
-      if(data.data.user){
-        $scope.user = data.data.user;
-      } else { $window.location.href = '/'; }
-    }, function(error){
-      console.log("there was an error checking if the user was logged in: " + error);
-    })
-
-    $http.get('/api/inquiry/' + $scope.questionId).then(function(data){
-      $scope.inquiry = data.data[0];
-    });
-
+    $scope.questionId = document.getElementsByName('inquiryId')[0].value;
+    $scope.answerTypes = ['Yes', 'No', 'Kinda'];
+    $scope.remainingCharacters = $scope.characterLimit;
     $scope.answerSubmission = {
       answer: null,
-      summary: null,
-      x_example: null,
-      z_example: null
+      summary: '',
+      x_example: '',
+      z_example: ''
     }
-
-    $scope.answerTypes = ['yes', 'no', 'kinda'];
-    $scope.remainingCharacters = $scope.characterLimit;
-
     $scope.submissionCanBeMade = false;
     $scope.expectExamples = false;
     $scope.invalidSubmissionError = false;
@@ -46,9 +29,11 @@ app.controller('answerSubmissionController', [
       if( $scope.answerSubmission.answer != null && $scope.answerSubmission.summary != null ){
         if( $scope.answerSubmission.answer.toLowerCase() === 'yes' &&
             $scope.answerSubmission.x_example.trim() != '' &&
-            $scope.answerSubmission.z_example.trim() != '' ){
+            $scope.answerSubmission.z_example.trim() != '' &&
+            $scope.answerSubmission.summary.trim() != ''){
           $scope.submissionCanBeMade = true;
-        } else if( $scope.answerSubmission.answer.toLowerCase() !== 'yes' ){
+        } else if( $scope.answerSubmission.answer.toLowerCase() !== 'yes' &&
+                   $scope.answerSubmission.summary.trim() != '' ){
           $scope.submissionCanBeMade = true;
         } else {
           $scope.submissionCanBeMade = false;
@@ -78,6 +63,8 @@ app.controller('answerSubmissionController', [
         $scope.answerSubmission.summary = escapeHtml($scope.answerSubmission.summary);
         $scope.answerSubmission.x_example = escapeHtml($scope.answerSubmission.x_example);
         $scope.answerSubmission.z_example = escapeHtml($scope.answerSubmission.z_example);
+
+        $scope.answerSubmission.answer = $scope.answerSubmission.answer.toLowerCase();
 
         $http.post('/api/submit_answer/' + $scope.questionId, $scope.answerSubmission)
         .then(function(result){
