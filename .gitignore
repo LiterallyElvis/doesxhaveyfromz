@@ -1,6 +1,10 @@
 start.sh
+quick_restart.sh
+full_restart.sh
 node_modules/
 public/bower
 npm-debug.log
+debug.log
+errors.log
 views/uncompiled
 public/javascript/app.js
