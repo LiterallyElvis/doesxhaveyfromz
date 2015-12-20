@@ -1,25 +1,40 @@
 module.exports = function(app){
-  app.get('/', function(req, res, next) {
-    res.render('index', { user: req.user });
+  app.get('/', function(req, res) {
+    var pageData = {
+      user: req.user
+    }
+    res.render('index', pageData);
   });
 
-  app.get('/unanswered', function(req, res, next) {
-    res.render('unanswered', { user: req.user });
+  app.get('/unanswered', function(req, res) {
+    var pageData = {
+      user: req.user
+    }
+    res.render('unanswered', pageData);
   });
 
-  app.get('/search', function(req, res, next) {
-    res.render('search', { user: req.user });
+  app.get('/search', function(req, res) {
+    var pageData = {
+      user: req.user
+    }
+    res.render('search', pageData);
   });
 
-  app.get('/answer/:id', function(req, res, next) {
+  app.get('/answer/:id', function(req, res) {
     if( !req.user ){
-      res.render('index', { user: req.user });
+      res.render('index');
     } else {
-      res.render('submit-answer', { user: req.user });
+      var pageData = {
+        user: req.user
+      }
+      res.render('submit-answer', pageData);
     }
   });
 
   app.get('/inquiry/:id', function(req, res){
-    res.render('inquiry', { user: req.user });
+    var pageData = {
+      user: req.user
+    }
+    res.render('inquiry', pageData);
   })
 }
