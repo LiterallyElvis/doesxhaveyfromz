@@ -6,24 +6,30 @@
 
 {% block content %}
 <div class="centerable-width centered-margin" ng-controller="searchController">
-  <h2 class="centered-text">Does {{ x | titlecase }} have {{ y }} from {{ z | titlecase }}?</h2>
-  <hr ng-show="inquiries.length">
-  <a ng-repeat="inquiry in inquiries" ng-show="inquiries.length" href="/inquiry/{{ inquiry.id }}">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title">Does {{ inquiry.x | titlecase }} have {{ inquiry.y }} from {{ inquiry.z | titlecase }}?</h3>
+  <h2 class="centered-text">Does <$ inquiry.x | capitalize $> have <$ inquiry.y $> from <$ inquiry.z | capitalize $>?</h2>
+  {% for inquiry in inquiries %}
+    <a href="/inquiry/<$ inquiry.id $>">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Does <$ inquiry.x | capitalize $> have <$ inquiry.y $> from <$ inquiry.z | capitalize $>?</h3>
+      </div>
     </div>
-  </div>
-  </a>
-  <div ng-show="!inquiries.length">
+    </a>
+  {% else %}
     <hr>
-    <div class="well well-lg">It seems nobody's asked a question like this yet.&nbsp;
-      <span ng-show="canSubmitInquiry && loggedIn">Would you like to
-        <button class="btn btn-default" ng-click="submitNewInquiry()">ask it?</button>
-      </span>
-      <span ng-show="!loggedIn">To ask it, please log in.</button>
-      </span>
+      {% if canSubmitInquiry %}
+        <div class="well well-lg">It seems nobody's asked a question like this yet.&nbsp;
+        {% if user %}
+          Would you like to <button class="btn btn-default" ng-click="submitNewInquiry()">ask it?</button>
+        </span>
+        {% else %}
+        <span ng-show="!loggedIn">To ask it, please log in.</span>
+        {% endif %}
+      {% else %}
+        <div class="well well-lg">Invalid inquiry.</div>
+      {% endif %}
     </div>
   </div>
+  {% endfor %}
 </div>
 {% endblock %}

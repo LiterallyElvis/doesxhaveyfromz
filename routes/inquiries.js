@@ -82,22 +82,24 @@ module.exports = function(app){
 
   app.inquiryFunctions.retrieveInquiryData = function(req, callback){
     var returnObj = {};
-    app.db.query('select * from inquiries join users on inquiries.asked_by = users.id where inquiries.id=$1', [req.params.inquiry_id],
+    var queryString = 'select * from inquiries join users on inquiries.asked_by = users.id where inquiries.id=$1';
+    var queryParams = [req.params.inquiry_id];
+    app.db.query(queryString, queryParams,
       function(err, result){
-        returnObj = err ? logAndReturnError(err) : constructSuccessfulResult(result.rows);
+        returnObj = err ? logAndReturnError(err) : constructSuccessfulResult(result.rows[0]);
         callback(returnObj);
       }
     );
   };
 
-  app.inquiryFunctions.retrieveAnswerForInquiry = function(req, callback){
+  app.inquiryFunctions.retrieveAnswerForInquiryId = function(req, callback){
     var returnObj = {};
-    app.db.query('select answers.id, summary, x_example, z_example, answer, submitted_at, upvotes, downvotes, username, avatar_url from answers join users on answers.answered_by = users.id where inquiry_id=$1', [req.params.inquiry_id],
-      function(err, result){
-        returnObj = err ? logAndReturnError(err) : constructSuccessfulResult(result.rows);
-        callback(returnObj);
-      }
-    );
+    var queryString = 'select answers.id, summary, x_example, z_example, answer, submitted_at, upvotes, downvotes, username, avatar_url from answers join users on answers.answered_by = users.id where inquiry_id=$1';
+    var queryParams = [req.params.inquiry_id];
+    app.db.query(queryString, queryParams, function(err, result){
+      returnObj = err ? logAndReturnError(err) : constructSuccessfulResult(result.rows);
+      callback(returnObj);
+    });
   };
 
   app.inquiryFunctions.submitInquiry = function(req, callback){

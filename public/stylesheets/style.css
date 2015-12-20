@@ -1,6 +1,7 @@
 .x{ color: Tomato; }
 .y{ color: #00C040; }
 .z{ color: MediumBlue; }
+.hide{ display: none; }
 .centerable-width{ width: 65%; }
 .centered-text{ text-align: center; }
 .centered-margin{ margin: 0 auto; }

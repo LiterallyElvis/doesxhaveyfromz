@@ -10,49 +10,59 @@ performantly on a site like this. Today is not that day.
 
 {% block content %}
 <div class="centerable-width centered-margin" ng-controller="inquiryController">
-  <div id="header" ng-if="inquiryInfoLoaded">
+  <div id="header">
     <h3 class="centered-text">
-      <a ng-href="https://github.com/{{ inquiryInfo.username }}">{{ inquiryInfo.username }}</a> asked if
-        <span class="x">{{ inquiryInfo.x | titlecase }}</span> has
-        <span class="y">{{ inquiryInfo.y }}</span> from
-        <span class="z">{{ inquiryInfo.z | titlecase }}</span>?
+      <a href="https://github.com/<$ inquiry.username $>"><$ inquiry.username $></a> asked if
+        <span class="x"><$ inquiry.x | capitalize $></span> has
+        <span class="y"><$ inquiry.y $></span> from
+        <span class="z"><$ inquiry.z | capitalize $></span>?
     </h3>
-    <p class="centered-text" ng-if="!loggedIn">Log in to submit an answer and/or vote on answers.</p>
-    <p class="centered-text" ng-if="loggedIn"><a ng-href="/answer/{{ inquiryId }}">I have an answer for this!</a></p>
+    {% if user %}
+      <p class="centered-text"><a ng-href="/answer/<$ inquiryId $>">I have an answer for this!</a></p>
+    {% else %}
+      <p class="centered-text">Log in to submit an answer and/or vote on answers.</p>
+    {% endif %}
   </div>
-  <div ng-repeat="answer in answers" class="media">
-    <div class="btn-group-vertical pull-right">
-      <button type="button" class="btn btn-default" ng-disabled="!loggedIn" ng-click="upvoteAnswer(answer)"><span class="glyphicon glyphicon-thumbs-up pull-left"></span>&nbsp;{{ answer.upvotes }}</button>
-      <button type="button" class="btn btn-default" ng-disabled="!loggedIn" ng-click="downvoteAnswer(answer)"><span class="glyphicon glyphicon-thumbs-down pull-left"></span>&nbsp;{{ answer.downvotes }}</button>
-    </div>
-    <div class="pull-left">
-      <img class="media-object img-rounded comment-user-photo" src="{{ answer.avatar_url }}">
-      <p>
-        <a href="https://www.github.com/{{ answer.username }}">
-          <small class="centered-text">{{ answer.username }}</small>
-        </a>
-      <p>
-    </div>
-    <div class="media-body media-middle">
+
+  {% for answer in answers %}
+    <div class="media">
+      <div class="btn-group-vertical pull-right">
+        {% if user %}
+          <button type="button" class="btn btn-default" ng-click="upvoteAnswer(<$ answer.id $>)"><span class="glyphicon glyphicon-thumbs-up pull-left"></span>&nbsp;<$ answer.upvotes $></button>
+          <button type="button" class="btn btn-default" ng-click="downvoteAnswer(<$ answer.id $>)"><span class="glyphicon glyphicon-thumbs-down pull-left"></span>&nbsp;<$ answer.downvotes $></button>
+        {% else %}
+          <button type="button" class="btn btn-default" disabled ng-click="upvoteAnswer(<$ answer.id $>)"><span class="glyphicon glyphicon-thumbs-up pull-left"></span>&nbsp;<$ answer.upvotes $></button>
+          <button type="button" class="btn btn-default" disabled ng-click="downvoteAnswer(<$ answer.id $>)"><span class="glyphicon glyphicon-thumbs-down pull-left"></span>&nbsp;<$ answer.downvotes $></button>
+        {% endif %}
+      </div>
+      <div class="pull-left">
+        <img class="media-object img-rounded comment-user-photo" src="<$ answer.avatar_url $>">
         <p>
-          <strong>{{ answer.answer | titlecase }},</strong> {{ answer.summary }}<br>
-          <a>
-            <small ng-show="loggedIn && !userHasReportedAnswer(answer)" ng-click="reportAnswer(answer)">
-              <small class="x">report as unproductive</small>
-            </small>
+          <a href="https://www.github.com/<$ answer.username $>">
+            <small class="centered-text"><$ answer.username $></small>
           </a>
-          <small ng-show="!loggedIn">
-            <small>sign in to report</small>
-          </small>
-        </p>
-        <small>
-          <a><p ng-click="toggleExamplesFor(answer)">{{ answer.pageExamples.text }}</p></a>
-        </small>
-        <div ng-if="answer.pageExamples.show">
-          <pre style="width: 49%; float: left;" prism source="{{answer.x_example}}" class="language-go"></pre>
-          <pre style="width: 49%; float: left;" prism source="{{answer.z_example}}" class="language-go"></pre>
-        </div>
+        <p>
+      </div>
+      <div class="media-body media-middle">
+          <p>
+            <strong><$ answer.answer | capitalize $>,</strong> <$ answer.summary $><br>
+            <a>
+              {% if user %}
+                <small ng-show="!userHasReportedAnswer(<$ answer.id $>)" ng-click="reportAnswer(<$ answer.id $>)">
+                  <small class="x">report as unproductive</small>
+                </small>
+              {% else %}
+                <small><small>sign in to report</small></small>
+              {% endif %}
+            </a>
+          </p>
+          {% if answer.answer == "yes" %}
+              <pre style="width: 49%; float: left;" prism source="<$ answer.x_example $>" class="language-go"></pre>
+              <pre style="width: 49%; float: left;" prism source="<$ answer.z_example $>" class="language-go"></pre>
+          {% endif %}
+      </div>
     </div>
-  </div>
+  {% else %}
+  {% endfor %}
 </div>
 {% endblock %}
