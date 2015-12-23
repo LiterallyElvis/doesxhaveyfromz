@@ -4,6 +4,7 @@ webhook-server
 node_modules/
 public/bower
 npm-debug.log
+nohup.out
 debug.log
 errors.log
 views/uncompiled
