@@ -1,5 +1,4 @@
 start.sh
-full_restart.sh
 webhook-server
 node_modules/
 public/bower
