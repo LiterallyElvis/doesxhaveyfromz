@@ -10,7 +10,7 @@ module.exports = function(grunt) {
     },
     watch: {
       files: ['<%= uglify.app.files %>'],
-      tasks: ['uglify:app.js']
+      tasks: ['uglify:app']
     }
   });
 
