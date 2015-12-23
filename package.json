@@ -1,5 +1,6 @@
 {
   "name": "doesxhaveyfromz",
+  "description": "See if the programming language you're using has a similar feature to another.",
   "version": "0.0.0",
   "private": true,
   "scripts": {
