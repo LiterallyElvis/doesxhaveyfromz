@@ -1,6 +1,6 @@
 start.sh
-quick_restart.sh
 full_restart.sh
+webhook-server
 node_modules/
 public/bower
 npm-debug.log
