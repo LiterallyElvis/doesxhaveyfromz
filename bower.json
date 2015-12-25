@@ -1,14 +1,13 @@
 {
   "name": "doesxhaveyfromz",
-  "description": "a web site",
+  "description": "A site to see if the programming language you're using has a similar feature to another.",
   "main": "",
   "authors": [
     "Jeffrey D. <literallyelvis@gmail.com>"
   ],
   "license": "MIT",
   "keywords": [
-    "web",
-    "site"
+    "programming"
   ],
   "moduleType": [
     "es6",
