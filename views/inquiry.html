@@ -4,7 +4,7 @@
 <div class="centerable-width centered-margin" ng-controller="inquiryController">
   <div id="header">
     <h3 class="centered-text">
-      <a href="https://github.com/<$ inquiry.username $>"><$ inquiry.username $></a> asked if
+      <a href="/user/<$ inquiry.asked_by $>"><$ inquiry.username $></a> asked if
         <span class="x"><$ inquiry.x | capitalize $></span> has
         <span class="y"><$ inquiry.y $></span> from
         <span class="z"><$ inquiry.z | capitalize $></span>?
@@ -19,9 +19,11 @@
   {% for answer in answers %}
     <div class="media">
       <div class="pull-left">
-        <img class="media-object img-rounded comment-user-photo" src="<$ answer.avatar_url $>">
+        <a href="/user/<$ answer.answered_by $>">
+          <img class="media-object img-rounded comment-user-photo" src="<$ answer.avatar_url $>">
+        <a href="/user/<$ answer.answered_by $>">
         <p>
-          <a href="https://www.github.com/<$ answer.username $>">
+          <a href="/user/<$ answer.answered_by $>">
             <small class="centered-text"><$ answer.username $></small>
           </a>
         <p>
