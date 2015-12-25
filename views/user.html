@@ -1,0 +1,42 @@
+{% extends "base_layout.html" %}
+
+{% block content %}
+<div class="centered-text">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 ">
+        <p class="lead">Inquiries</p>
+        {% for inquiry in inquiries %}
+          <a href="/inquiries/<$ inquiry.id $>">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Does <$ inquiry.x | capitalize $> have <$ inquiry.y $> from <$ inquiry.z | capitalize $>?</h3>
+              </div>
+            </div>
+          </a>
+        {% else %}
+          <p><$ userInfo.username $> hasn't asked any questions yet.</p>
+        {% endfor %}
+      </div>
+      <div class="col-md-6 ">
+        <p class="lead">Answers</p>
+        {% for answer in answers %}
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">
+                  <a href="/inquiries/<$ answer.inquiry_id $>">
+                    Does <$ answer.x | capitalize $> have <$ answer.y $> from <$ answer.z | capitalize $>?</a>
+                </h3>
+              </div>
+              <div class="panel-body">
+                <strong><$ answer.answer | capitalize $></strong>, <$ answer.summary $>
+              </div>
+            </div>
+        {% else %}
+          <p><$ userInfo.username $> hasn't answered any questions yet.</p>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
