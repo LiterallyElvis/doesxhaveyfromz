@@ -41,10 +41,10 @@ func GithookListener(w http.ResponseWriter, req *http.Request) {
 			if WebhookIsAuthenticated(req.Header["X-Hub-Signature"][0], body) {
 				exec.Command("/usr/bin/git", "pull", os.Getenv("GIT_PULL_CREDS")).Run()
 				exec.Command("/usr/local/bin/npm", "install").Run()
-				exec.Command("/usr/local/bin/bower", "install", "--allow-root").Run()
+				exec.Command("/usr/local/bin/bower", "install").Run()
 				exec.Command("/usr/local/bin/grunt", "build").Run()
-				exec.Command("/usr/local/bin/forever", "stop", "doesxhaveyfromz").Run()
-				exec.Command("/usr/local/bin/forever", "start", "--uid", "\"doesxhaveyfromz\"", "-a", "./bin/www").Run()
+				exec.Command("/usr/local/bin/forever", "stopall").Run()
+				exec.Command("/usr/local/bin/forever", "start", "./bin/www").Run()
 			} else {
 				w.WriteHeader(404)
 			}
