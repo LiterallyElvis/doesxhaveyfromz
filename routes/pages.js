@@ -49,6 +49,47 @@ module.exports = function(app){
     });
   });
 
+  app.get('/user/:user_id', function(req, res) {
+    var pageData = {
+      title: 'User history',
+      user: req.user
+    }
+
+    async.auto({
+      info: function(callback, results){
+        app.users.getUserInfo(req.params.user_id, function(userData){
+          if( userData.status === 500 ){ callback(userData.data, null); }
+          else { callback(null, userData.data); }
+        });
+      },
+      inquiries: function(callback, results){
+        app.users.getInquiriesByUser(req.params.user_id, function(inquiryData){
+          if( inquiryData.status === 500 ){ callback(inquiryData.data, null) }
+          else {
+            if(inquiryData.data.length === 0) { callback(null, null); }
+            else { callback(null, inquiryData.data); }
+          }
+        });
+      },
+      answers: function(callback, results){
+        app.users.getAnswersByUser(req.params.user_id, function(answerData){
+          if( answerData.status === 500 ){ callback(answerData.data, null) }
+          else {
+            if(answerData.data.length === 0) { callback(null, null); }
+            else { callback(null, answerData.data); }
+          }
+        });
+      },
+      complete: ['info', 'inquiries', 'answers', function(callback, results){
+        pageData.userInfo = results.info;
+        pageData.inquiries = results.inquiries;
+        pageData.answers = results.answers;
+
+        res.render('user', pageData);
+      }]
+    });
+  });
+
   app.get('/answer/:inquiry_id', function(req, res) {
     if( !req.user ){
       res.redirect('/');

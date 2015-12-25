@@ -94,7 +94,7 @@ module.exports = function(app){
 
   app.inquiryFunctions.retrieveAnswerForInquiryId = function(req, callback){
     var returnObj = {};
-    var queryString = 'select answers.id, summary, x_example, z_example, answer, submitted_at, upvotes, downvotes, username, avatar_url from answers join users on answers.answered_by = users.id where inquiry_id=$1';
+    var queryString = 'select answers.id, summary, x_example, z_example, answer, answered_by, submitted_at, upvotes, downvotes, username, avatar_url from answers join users on answers.answered_by = users.id where inquiry_id=$1';
     var queryParams = [req.params.inquiry_id];
     app.db.query(queryString, queryParams, function(err, result){
       returnObj = err ? logAndReturnError(err) : constructSuccessfulResult(result.rows);
