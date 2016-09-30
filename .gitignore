@@ -8,3 +8,6 @@ debug.log
 errors.log
 views/uncompiled
 public/javascript/app.js
+tests/.env
+*.pyc
+tests/.cache
