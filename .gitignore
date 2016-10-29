@@ -11,3 +11,4 @@ public/javascript/app.js
 tests/.env
 *.pyc
 tests/.cache
+.DS_Store
